@@ -1,28 +1,19 @@
 import frappe
 from frappe import _
 
-# اسم الدور الذي يُسمح لحامله باستخدام مبدّل الشركات
-ROLE_NAME = "Company Switcher Manager"
-
 # مفتاح افتراضي لتخزين وضع المبدّل الحالي (شركة محددة أو ALL)
 DEFAULT_KEY = "company_switcher_current_company"
-
-# مفتاح افتراضي لتتبّع اسم صلاحية User Permission التي أنشأها المبدّل فقط
-PERMISSION_KEY = "company_switcher_permission_name"
-
 ALL_COMPANIES = "ALL"
 
 
-def _has_switcher_access():
-	user = frappe.session.user
-	if user == "Administrator":
-		return True
-	return ROLE_NAME in frappe.get_roles(user)
+def _ensure_logged_in():
+	if frappe.session.user == "Guest":
+		frappe.throw(_("Not permitted."), frappe.PermissionError)
 
 
-def _ensure_authorized():
-	if not _has_switcher_access():
-		frappe.throw(_("Not permitted to use Company Switcher."), frappe.PermissionError)
+def _accessible_companies():
+	"""الشركات التي يملك المستخدم صلاحية عليها فقط (تحترم User Permissions)."""
+	return frappe.get_list("Company", pluck="name", order_by="name")
 
 
 def _clean_user_default(user, key):
@@ -53,31 +44,17 @@ def _set_user_default(user, key, value):
 	).insert(ignore_permissions=True)
 
 
-def _remove_switcher_permission(user):
-	"""يحذف فقط صلاحية Company التي أنشأها المبدّل (المتتبَّعة) دون المساس بغيرها."""
-	tracked = frappe.db.get_value(
-		"DefaultValue", {"parent": user, "defkey": PERMISSION_KEY}, "defvalue"
-	)
-	if tracked and frappe.db.exists("User Permission", tracked):
-		frappe.delete_doc("User Permission", tracked, ignore_permissions=True, force=True)
-	_set_user_default(user, PERMISSION_KEY, "")
-
-
 @frappe.whitelist()
 def get_companies():
-	"""إرجاع كل الشركات لتعبئة قائمة المبدّل."""
-	_ensure_authorized()
-	return {
-		"companies": frappe.get_all(
-			"Company", pluck="name", order_by="name", ignore_permissions=True
-		)
-	}
+	"""إرجاع الشركات المسموح بها للمستخدم فقط."""
+	_ensure_logged_in()
+	return {"companies": _accessible_companies()}
 
 
 @frappe.whitelist()
 def get_current_company():
 	"""إرجاع الشركة الحالية من وضع المبدّل، أو ALL."""
-	_ensure_authorized()
+	_ensure_logged_in()
 	value = frappe.db.get_value(
 		"DefaultValue", {"parent": frappe.session.user, "defkey": DEFAULT_KEY}, "defvalue"
 	)
@@ -86,45 +63,28 @@ def get_current_company():
 
 @frappe.whitelist()
 def switch_company(company):
-	"""تبديل الشركة عبر إدارة صلاحية Company وضبط الافتراضيات بشكل آمن وذرّي."""
-	_ensure_authorized()
+	"""يضبط الشركة الافتراضية للمستخدم (لا يمنح/يحذف صلاحيات).
+	يُسمح فقط باختيار شركة يملك المستخدم صلاحية عليها."""
+	_ensure_logged_in()
 	user = frappe.session.user
 	company = (company or "").strip()
 
 	try:
 		if company and company != ALL_COMPANIES:
-			if not frappe.db.exists("Company", company):
-				frappe.throw(_("Company not found"))
+			# يجب أن تكون الشركة ضمن الشركات المسموح بها للمستخدم
+			if company not in _accessible_companies():
+				frappe.throw(_("You are not permitted to select this company."))
 
-			# أزل صلاحيتنا السابقة فقط، ثم أنشئ الجديدة وتتبّعها
-			_remove_switcher_permission(user)
-
-			perm = frappe.get_doc(
-				{
-					"doctype": "User Permission",
-					"user": user,
-					"allow": "Company",
-					"for_value": company,
-					"apply_to_all_doctypes": 1,
-				}
-			).insert(ignore_permissions=True)
-
-			_set_user_default(user, PERMISSION_KEY, perm.name)
 			_set_user_default(user, DEFAULT_KEY, company)
-			# يجعل الشركة افتراضية في التقارير وكل حقل يحتاج اختيار شركة
+			# يجعلها افتراضية في التقارير وكل حقل يحتاج اختيار شركة
 			frappe.defaults.set_user_default("company", company, user=user)
 		else:
-			# وضع "كل الشركات": أزل القيد وأعد افتراضياً منطقياً
-			_remove_switcher_permission(user)
+			# وضع "كل الشركات": بلا شركة افتراضية محددة من المبدّل
 			_set_user_default(user, DEFAULT_KEY, ALL_COMPANIES)
-
+			companies = _accessible_companies()
 			default_company = frappe.defaults.get_global_default("company")
-			if not default_company:
-				companies = frappe.get_all(
-					"Company", pluck="name", limit=1, order_by="name"
-				)
+			if default_company not in companies:
 				default_company = companies[0] if companies else None
-
 			if default_company:
 				frappe.defaults.set_user_default("company", default_company, user=user)
 

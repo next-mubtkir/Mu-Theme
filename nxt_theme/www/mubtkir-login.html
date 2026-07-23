@@ -1418,6 +1418,10 @@ function animateUsersCounter() {
 
 document.getElementById("rememberMe").addEventListener("change", updateRememberedCredentials);
 
+// حدّ محاولات الدخول الفاشلة قبل اقتراح استعادة كلمة المرور
+let failedAttempts = 0;
+const MAX_ATTEMPTS = 3;
+
 document.getElementById("login_form").addEventListener("submit", async function(event) {
   event.preventDefault();
 
@@ -1456,9 +1460,24 @@ document.getElementById("login_form").addEventListener("submit", async function(
       return;
     }
 
-    errorBox.textContent = currentLang === "ar"
-      ? "بيانات الدخول غير صحيحة"
-      : "Invalid login details";
+    failedAttempts += 1;
+
+    if (failedAttempts >= MAX_ATTEMPTS) {
+      // بعد تجاوز الحد: تنبيه واضح + رابط استعادة + توجيه تلقائي بعد 4 ثوانٍ
+      errorBox.innerHTML = currentLang === "ar"
+        ? 'تجاوزت عدد المحاولات المسموحة. جارٍ توجيهك إلى '
+          + '<a href="/mubtkir_forgot" style="color:inherit;text-decoration:underline;font-weight:700">استعادة كلمة المرور</a>…'
+        : 'Too many failed attempts. Redirecting you to '
+          + '<a href="/mubtkir_forgot" style="color:inherit;text-decoration:underline;font-weight:700">password recovery</a>…';
+      setTimeout(function () {
+        window.location.href = "/mubtkir_forgot";
+      }, 4000);
+    } else {
+      const remaining = MAX_ATTEMPTS - failedAttempts;
+      errorBox.textContent = currentLang === "ar"
+        ? ("بيانات الدخول غير صحيحة — المحاولات المتبقية: " + remaining)
+        : ("Invalid login details — attempts left: " + remaining);
+    }
 
   } catch (error) {
     errorBox.textContent = currentLang === "ar"

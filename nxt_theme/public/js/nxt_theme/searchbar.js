@@ -76,7 +76,13 @@ document.addEventListener(
         if (mod && (key === "g" || key === "m")) {
             e.preventDefault();
             e.stopPropagation();
-            openSearchModal();
+            // نحاكي نقر مربع البحث (المسار المعروف نجاحه) بدل فتح المودال يدوياً
+            const sb = document.querySelector(".searchbar");
+            if (sb) {
+                sb.click();
+            } else {
+                openSearchModal();
+            }
         }
     },
     true

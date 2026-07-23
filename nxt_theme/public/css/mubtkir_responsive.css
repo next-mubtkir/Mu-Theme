@@ -11,6 +11,11 @@
 
 /* الأجهزة اللوحية والجوالات (< 768px) */
 @media (max-width: 767px) {
+	/* إخفاء أيقونتي الإعدادات و"؟" في الشريط العلوي لتوفير مساحة */
+	.mub-hide-mobile {
+		display: none !important;
+	}
+
 	/* منع تجاوز عناصر الشريط العلوي أفقياً */
 	header .box .flex.h-full.w-full.items-center {
 		overflow-x: auto;

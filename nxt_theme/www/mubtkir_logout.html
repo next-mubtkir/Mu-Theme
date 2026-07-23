@@ -58,9 +58,6 @@
     </section>
     <!-- بطاقة تأكيد تسجيل الخروج -->
     <section class="logout-card">
-     <div class="logout-brand">
-      <img src="/assets/nxt_theme/images/mubtkir-logo.png" alt="MUBTKIR ERP"> <strong>MUBTKIR <span>ERP</span></strong>
-     </div>
      <div class="success-icon">
       <span>✓</span>
      </div>
@@ -252,8 +249,8 @@ main .container,
   margin: 0 auto;
   padding: 38px 0 54px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(430px, 610px);
-  grid-template-areas: "visual card";
+  grid-template-columns: minmax(430px, 610px) minmax(0, 1fr);
+  grid-template-areas: "card visual";
   align-items: center;
   gap: clamp(45px, 6vw, 100px);
   position: relative;
@@ -813,15 +810,31 @@ main .container,
 }
 
 .mub-logout-page.en .logout-main {
-  grid-template-areas: "card visual";
+  grid-template-columns: minmax(0, 1fr) minmax(430px, 610px);
+  grid-template-areas: "visual card";
 }
 
 .mub-logout-page.en .header-brand,
 .mub-logout-page.en .logout-brand {
   direction: ltr;
 }
+
+/* إخفاء المحتوى حتى تُطبَّق اللغة الصحيحة لمنع وميض العربية قبل التحويل للإنجليزية */
+.mub-logout-page {
+  opacity: 0;
+}
+.mub-logout-page.lang-ready {
+  opacity: 1;
+  transition: opacity .12s ease;
+}
 </style>
 <script>
+// خطة احتياطية: إظهار الصفحة بعد مهلة قصيرة مهما حدث
+setTimeout(function () {
+  var p = document.getElementById("mubLogoutPage");
+  if (p) p.classList.add("lang-ready");
+}, 700);
+
 document.addEventListener("DOMContentLoaded", function () {
   // لغة المستخدم تُمرَّر عبر ?lang= من صفحة التوجيه بعد الخروج (الجلسة تكون قد انتهت)
   const urlLang = new URLSearchParams(window.location.search).get("lang");
@@ -852,6 +865,9 @@ document.addEventListener("DOMContentLoaded", function () {
         ? element.dataset.ar
         : element.dataset.en;
   });
+
+  // إظهار الصفحة بعد ضبط اللغة (مع خطة احتياطية زمنية)
+  if (page) page.classList.add("lang-ready");
 
   document.title =
     lang === "ar"

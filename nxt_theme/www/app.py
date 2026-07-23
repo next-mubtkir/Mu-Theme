@@ -19,7 +19,9 @@ CLOSING_SCRIPT_TAG_PATTERN = re.compile(r"</script\>")
 
 def get_context(context):
 	if frappe.session.user == "Guest":
-		frappe.throw(_("Log in to access this page."), frappe.PermissionError)
+		# الزائر يُوجَّه إلى صفحة الدخول المخصّصة بدل صفحة "غير مسموح"
+		frappe.local.flags.redirect_location = "/login"
+		raise frappe.Redirect
 	elif frappe.db.get_value("User", frappe.session.user, "user_type", order_by=None) == "Website User":
 		frappe.throw(_("You are not permitted to access this page."), frappe.PermissionError)
 
@@ -89,26 +91,34 @@ def get_context(context):
 
 
 def get_company_switcher_context():
-	"""يُحسب في بايثون (غير المقيّد) ويُمرّر للقالب، لأن Jinja المقيّدة في الويب
-	لا تسمح باستدعاء get_roles / db.exists / defaults مباشرةً داخل القالب."""
+	"""يُحسب في بايثون (غير المقيّد) ويُمرّر للقالب.
+	يظهر المبدّل لكل المستخدمين، ويعرض فقط الشركات المسموح بها للمستخدم (تحترم الصلاحيات)."""
 	user = frappe.session.user
-	enabled = user == "Administrator" or "Company Switcher Manager" in frappe.get_roles(user)
-	if not enabled:
+	if user == "Guest":
 		return {"enabled": False}
 
-	current = frappe.defaults.get_user_default("company")
-	restricted = bool(
-		frappe.db.exists("User Permission", {"user": user, "allow": "Company"})
-	)
-	companies = frappe.get_all("Company", pluck="name", order_by="name", ignore_permissions=True)
+	try:
+		# get_list يحترم User Permissions على Company، فلا يرى إلا شركاته المسموح بها
+		companies = frappe.get_list("Company", pluck="name", order_by="name")
+		if not companies:
+			return {"enabled": False}
 
-	return {
-		"enabled": True,
-		"current": current or "ALL",
-		"current_label": current or "",
-		"restricted": 1 if restricted else 0,
-		"companies": companies,
-	}
+		current = frappe.defaults.get_user_default("company")
+		restricted = bool(
+			frappe.db.exists("User Permission", {"user": user, "allow": "Company"})
+		)
+
+		return {
+			"enabled": True,
+			"current": current or "ALL",
+			"current_label": current or "",
+			"restricted": 1 if restricted else 0,
+			"show_all": 0 if restricted else 1,
+			"companies": companies,
+		}
+	except Exception:
+		# لا نكسر صفحة الـ desk إن تعذّر جلب الشركات
+		return {"enabled": False}
 
 def hex_to_rgb(hex_code):
     hex_code = hex_code.lstrip('#')

@@ -8,7 +8,7 @@ $(document).ready(function () {
 		$(".company_switcher").hide();
 
 		frappe.confirm(
-			__("This will update your company access and reload the page. Continue?"),
+			__("This will set your active company and reload the page. Continue?"),
 			function () {
 				frappe.call({
 					method: "nxt_theme.api.company_switcher.switch_company",
