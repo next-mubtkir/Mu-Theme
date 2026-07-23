@@ -92,7 +92,7 @@ def get_company_switcher_context():
 	"""يُحسب في بايثون (غير المقيّد) ويُمرّر للقالب، لأن Jinja المقيّدة في الويب
 	لا تسمح باستدعاء get_roles / db.exists / defaults مباشرةً داخل القالب."""
 	user = frappe.session.user
-	enabled = user != "Administrator" and "Company Switcher Manager" in frappe.get_roles(user)
+	enabled = user == "Administrator" or "Company Switcher Manager" in frappe.get_roles(user)
 	if not enabled:
 		return {"enabled": False}
 

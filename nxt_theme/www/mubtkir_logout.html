@@ -5,7 +5,6 @@
   <div class="mub-logout-page" id="mubLogoutPage">
    <!-- الشريط العلوي -->
    <header class="logout-header">
-    <a href="/login" class="header-login-link"> <span class="header-login-icon">👤</span> <span data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</span> </a>
     <div class="header-brand">
      <img src="/assets/nxt_theme/images/mubtkir-logo.png" alt="MUBTKIR ERP"> <strong>MUBTKIR <span>ERP</span></strong>
     </div>
@@ -67,7 +66,7 @@
      </div>
      <h1 data-ar="تم تسجيل الخروج بنجاح" data-en="You have been logged out successfully">تم تسجيل الخروج بنجاح</h1>
      <p data-ar="تم تسجيل خروجك من النظام بنجاح. يمكنك العودة إلى صفحة تسجيل الدخول للمتابعة." data-en="You have been logged out successfully. You can return to the login page to continue.">تم تسجيل خروجك من النظام بنجاح. يمكنك العودة إلى صفحة تسجيل الدخول للمتابعة.</p>
-     <a href="/login" class="primary-login-button"> <span data-ar="العودة إلى تسجيل الدخول" data-en="Back to Login"> العودة إلى تسجيل الدخول </span> <span class="button-icon">↪</span> </a> <a href="/" class="home-link"> <span>⌂</span> <span data-ar="الرجوع إلى الصفحة الرئيسية" data-en="Back to Home"> الرجوع إلى الصفحة الرئيسية </span> </a>
+     <a href="/login" class="primary-login-button"> <span data-ar="العودة إلى تسجيل الدخول" data-en="Back to Login"> العودة إلى تسجيل الدخول </span> <span class="button-icon">↪</span> </a>
     </section>
    </main>
   </div>
@@ -824,7 +823,10 @@ main .container,
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+  // لغة المستخدم تُمرَّر عبر ?lang= من صفحة التوجيه بعد الخروج (الجلسة تكون قد انتهت)
+  const urlLang = new URLSearchParams(window.location.search).get("lang");
   const frappeLang =
+    urlLang ||
     window.frappe?.boot?.lang ||
     window.frappe?.boot?.user?.language ||
     document.documentElement.lang ||

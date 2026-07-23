@@ -8,12 +8,16 @@ $(document).ready(function () {
 		return;
 	}
 
-	var LOGOUT_PAGE = "/mubtkir_logout";
+	function logout_url() {
+		// تمرير لغة المستخدم الحالية لأن الجلسة تنتهي قبل تحميل صفحة الخروج
+		var lang = (window.frappe && frappe.boot && frappe.boot.lang) || "ar";
+		return "/mubtkir_logout?lang=" + encodeURIComponent(lang);
+	}
 
 	// المسار الأساسي: تجاوز دالة إعادة التوجيه بعد الخروج
 	if (typeof frappe.app.redirect_to_login === "function") {
 		frappe.app.redirect_to_login = function () {
-			window.location.href = LOGOUT_PAGE;
+			window.location.href = logout_url();
 		};
 	}
 
@@ -24,7 +28,7 @@ $(document).ready(function () {
 			return frappe.call({
 				method: "logout",
 				callback: function () {
-					window.location.href = LOGOUT_PAGE;
+					window.location.href = logout_url();
 				},
 			});
 		};

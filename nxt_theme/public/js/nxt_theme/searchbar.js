@@ -63,16 +63,24 @@ $(document).on("click", "#quick-search", function(e) {
     }
 });
 
-// Keyboard shortcut: Cmd/Ctrl + K (also accepts G/M) to open search.
-// كان الاختصار سابقاً يفحص metaKey فقط (Cmd على ماك)، فلا يعمل على ويندوز/لينكس.
-$(document).on("keydown", (e) => {
-    const mod = e.metaKey || e.ctrlKey;
-    const key = (e.key || "").toLowerCase();
-    if (mod && (key === "k" || key === "g" || key === "m")) {
-        e.preventDefault();
-        openSearchModal();
-    }
-});
+// اختصار فتح البحث: Ctrl/⌘ + G (وبديل M).
+// ملاحظات الإصلاح:
+//  - كان سابقاً يفحص metaKey فقط (Cmd على ماك) فلا يعمل على ويندوز/لينكس.
+//  - Ctrl+K يخطفه المتصفح (شريط العنوان) على ويندوز، لذا استُبدل بـ G.
+//  - نستخدم مرحلة الالتقاط (capture) + stopPropagation لتجاوز مستمع Frappe الافتراضي.
+document.addEventListener(
+    "keydown",
+    function (e) {
+        const mod = e.metaKey || e.ctrlKey;
+        const key = (e.key || "").toLowerCase();
+        if (mod && (key === "g" || key === "m")) {
+            e.preventDefault();
+            e.stopPropagation();
+            openSearchModal();
+        }
+    },
+    true
+);
 
 
   

@@ -14,9 +14,10 @@ ALL_COMPANIES = "ALL"
 
 
 def _has_switcher_access():
-	if frappe.session.user == "Administrator":
-		return False
-	return ROLE_NAME in frappe.get_roles(frappe.session.user)
+	user = frappe.session.user
+	if user == "Administrator":
+		return True
+	return ROLE_NAME in frappe.get_roles(user)
 
 
 def _ensure_authorized():
