@@ -81,10 +81,34 @@ def get_context(context):
 			"color_theme_1": hex_to_rgb(theme_settings.get("primary_color") or "#060960"),
 			"color_theme_2": hex_to_rgb(theme_settings.get("secondary_color") or "#5EB182"),
 			"skin_name": theme_settings.get("skin") or "razor",
+			"company_switcher": get_company_switcher_context(),
 		}
 	)
 
 	return context
+
+
+def get_company_switcher_context():
+	"""يُحسب في بايثون (غير المقيّد) ويُمرّر للقالب، لأن Jinja المقيّدة في الويب
+	لا تسمح باستدعاء get_roles / db.exists / defaults مباشرةً داخل القالب."""
+	user = frappe.session.user
+	enabled = user != "Administrator" and "Company Switcher Manager" in frappe.get_roles(user)
+	if not enabled:
+		return {"enabled": False}
+
+	current = frappe.defaults.get_user_default("company")
+	restricted = bool(
+		frappe.db.exists("User Permission", {"user": user, "allow": "Company"})
+	)
+	companies = frappe.get_all("Company", pluck="name", order_by="name", ignore_permissions=True)
+
+	return {
+		"enabled": True,
+		"current": current or "ALL",
+		"current_label": current or "",
+		"restricted": 1 if restricted else 0,
+		"companies": companies,
+	}
 
 def hex_to_rgb(hex_code):
     hex_code = hex_code.lstrip('#')

@@ -244,6 +244,12 @@ before_migrate = "nxt_theme.install.ensure_role"
 # MUBTKIR: صفحات الدخول / استعادة كلمة المرور / الخروج
 # ---------------------------------------------------------------------------
 
+# الصفحة الرئيسية عند فتح الرابط الجذر "/":
+# المستخدم المسجّل → نظام العمل (/app)، والزائر يُحوّل تلقائياً إلى صفحة الدخول.
+# ملاحظة: إن كان حقل Home Page في Website Settings معبّأً فهو يتقدّم على هذا الإعداد،
+# لذا اتركه فارغاً ليعمل هذا الافتراضي من الثيم.
+home_page = "app"
+
 # توجيه صفحة الدخول القياسية إلى صفحة MUBTKIR المخصصة
 website_route_rules = [
 	{"from_route": "/login", "to_route": "mubtkir-login"},
@@ -254,8 +260,29 @@ website_redirects = [
 	{"source": "/forgot", "target": "/mubtkir_forgot"},
 ]
 
-# تصدير/استيراد كتل MUBTKIR المخصّصة فقط (لا تمسّ كتل العميل الأخرى)
+# شحن كتل Custom HTML Block الجاهزة مع التطبيق.
+# لتعبئة الملف بالبيانات النظيفة: ثبّت التطبيق على الموقع الذي يحوي الكتل ثم شغّل:
+#   bench --site <site> export-fixtures --app nxt_theme
+# سيُنشئ ذلك ملف nxt_theme/fixtures/custom_html_block.json بمحتوى دقيق (html/script/style).
 fixtures = [
-	{"dt": "Custom HTML Block", "filters": [["name", "like", "MUBTKIR%"]]},
+	{
+		"dt": "Custom HTML Block",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Daimond Home", "Healthcare Home", "Gold Management", "Healthcare",
+					"Employee Lifecycle", "Shift & Attendance", "Performance",
+					"Expense Claims", "Leaves", "Recruitment", "HR", "POSNext", "Home",
+					"Whatsapp", "ERPNext Integrations", "Integrations", "Build",
+					"Payables", "Receivables", "Financial Reports", "ZATCA",
+					"ERPNext Settings", "Tools", "Website", "Support", "CRM", "Projects",
+					"Quality", "Manufacturing", "Users", "Assets", "Accunting", "stock",
+					"seling", "Buying",
+				],
+			]
+		],
+	},
 ]
 
