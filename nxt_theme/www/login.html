@@ -1,0 +1,362 @@
+<!-- no-cache -->
+{% extends "templates/layouts/login.html" %} 
+{% block title %} Login {% endblock %} 
+{% block styles %}
+{{ include_style("nxt_theme_login.bundle.css") }}
+{% endblock %} 
+{% block content %}
+{% set theme_settings = frappe.get_doc("Theme Settings") %}
+{% set primary_color = theme_settings.primary_color or "#3498db" %}
+{% set secondary_color = theme_settings.secondary_color or "#2ecc71" %}
+{% set login_tag = theme_settings.login_tag %}
+{% set login_description = theme_settings.login_description %}
+{% set short_notes = theme_settings.short_notes %}
+{% set language = frappe.db.get_single_value('System Settings', 'language') %}
+
+<body>
+	<div class="container grid grid-cols-12 p-0 lg:h-screen" style="margin: 0;">
+	<div class="relative z-50 bg-white h-full p-7 main-login">
+		<button id="lang-switch" style="position: absolute; top: 20px; right: 30px; z-index: 9999; padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #ccc; background: #fff; cursor: pointer;">
+			{% if frappe.local.lang == "ar" %}
+				English
+			{% else %}
+				العربية
+			{% endif %}
+		</button>
+			<div
+				class="relative z-10 flex flex-col justify-center h-full py-2 lg:py-32"
+				style="width: 70%; margin: 0 auto;"
+			>
+			<section class="mt-10 for-login" style="display: none;">
+					<div class="text-2xl font-medium" data-i18n="signIn">Sign In</div>
+					{% if not disable_signup %}
+					<div style="display: flex;">
+					<div class="mt-2.5 donthave text-slate-600" data-i18n="alreadyHaveAccount">
+						Don't have an account?
+					</div>
+					<a class="font-medium text-primary" style="margin-top: auto;" data-i18n="signUp" href="#signup">
+						Sign Up
+					</a>
+					</div>
+					{% endif %}
+					<form class="mt-6 form-login">
+						<label data-i18n="email"
+							class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right"
+						>
+							User Name*
+						</label>
+						<input
+							type="text"
+							placeholder="User Name"
+							data-i18n-placeholder="email"
+							id="login_email"
+							class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm shadow-sm placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&amp;[type=&#39;file&#39;]]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 block rounded-[0.6rem] border-slate-300/80 px-4 py-3.5"
+						/>
+						<label data-i18n="password"
+							class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right mt-4"
+						>
+							Password*
+						</label>
+						<div class="user-box">
+						<input
+							type="password"
+							placeholder="****"
+							id="login_password"
+							class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm shadow-sm placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&amp;[type=&#39;file&#39;]]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 block rounded-[0.6rem] border-slate-300/80 px-4 py-3.5"
+						/>
+						<span class="password-toggle-icon"><i class="fas fa-eye"></i></span>
+						</div>
+						<div
+							class="flex mt-4 text-xs text-slate-500 sm:text-sm"
+						>
+							<a data-i18n="forgotPassword" href="#forgot">Forgot Password?</a>
+						</div>
+						<div class="mt-5 text-center xl:mt-8 xl:text-left">
+							<button data-i18n="signInBtn"
+								class="btn-primary transition duration-200 border shadow-sm inline-flex items-center justify-center px-3 font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary rounded-full w-full bg-gradient-to-r from-theme-1/70 to-theme-2/70 py-3.5 xl:mr-3"
+							>
+								Sign In
+							</button>
+						</div>
+					</form>
+				</section>
+				{% if not disable_signup %}
+				<section class="mt-10 for-signup" style="display: none;">
+					<div class="text-2xl forsignup font-medium" data-i18n="signUp">Sign UP</div>
+					<div style="display: flex;">
+					<div class="mt-2.5  alreadyy text-slate-600" data-i18n="alreadyHaveAccount">
+						Already have an account?
+					</div>
+					<a style="margin-top: auto;" class="font-medium text-primary" href="#login" data-i18n="signInBtn">
+						Sign In
+					</a>
+					</div>
+
+					<form class="mt-6 form-signup">
+						<label data-i18n="email" 
+							class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right"
+						>
+							Email*
+						</label>
+						<input 
+							type="text"
+							placeholder="email@example.com"
+							id="signup_email"
+							class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm shadow-sm placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&amp;[type=&#39;file&#39;]]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 block rounded-[0.6rem] border-slate-300/80 px-4 py-3.5"
+						/>
+						<label data-i18n="fullName"
+							class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right mt-4"
+						>
+							Full Name*
+						</label>
+						<input
+							type="text"
+							placeholder="Full Name"
+							id="signup_fullname"
+							class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm shadow-sm placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&amp;[type=&#39;file&#39;]]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 block rounded-[0.6rem] border-slate-300/80 px-4 py-3.5"/>
+						<div class="mt-5 text-center xl:mt-8 xl:text-left">
+							<button data-i18n="signUpBtn" class="signupar btn-primary transition duration-200 border shadow-sm inline-flex items-center justify-center px-3 font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary rounded-full w-full bg-gradient-to-r from-theme-1/70 to-theme-2/70 py-3.5 xl:mr-3">
+								Sign Up
+							</button>
+						</div>
+					</form>
+				</section>
+				{% endif %}
+				<section class="mt-10 for-forgot" style="display: none;">
+					<div class="text-2xl 1signup font-medium" data-i18n="signIn">Sign UP</div>
+					<div style="display: flex;">
+					<div class=" mt-2.5  text-slate-600" data-i18n="backTo">
+						Back to
+					</div>
+					<a style="margin-top: auto;"  data-i18n="signInBtn" class="1signin font-medium text-primary" href="#login">
+						Sign In
+					</a>
+					</div>
+					<form class="mt-6 form-forgot">
+						<label data-i18n="email" class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">
+							Email*
+						</label>
+						<input
+							type="text"
+							placeholder="email@example.com"
+							id="forgot_email"
+							class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm shadow-sm placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 [&amp;[type=&#39;file&#39;]]:border file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r-[1px] file:border-slate-100/10 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-500/70 hover:file:bg-200 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 block rounded-[0.6rem] border-slate-300/80 px-4 py-3.5"
+						/>
+						<div class="mt-5 text-center xl:mt-8 xl:text-left">
+							<button data-i18n="resetPassword" class="btn-primary transition duration-200 border shadow-sm inline-flex items-center justify-center px-3 font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary rounded-full w-full bg-gradient-to-r from-theme-1/70 to-theme-2/70 py-3.5 xl:mr-3">
+								Reset Password
+							</button>
+						</div>
+					</form>
+				</section>
+			</div>
+		</div>
+	</div>
+	<div class="fixed inset-0 grid h-screen w-screen grid-cols-12 p-0">
+		<div class="relative h-screen col-span-12 lg:col-span-5 2xl:col-span-4 after:bg-white bg-slot after:hidden after:lg:block after:content-[&#39;&#39;] after:absolute after:right-0 after:inset-y-0 after:bg-gradient-to-b after:from-white after:to-slate-100/80 after:rounded-[0_1.2rem_1.2rem_0/0_1.7rem_1.7rem_0] before:content-[&#39;&#39;] before:hidden before:lg:block before:absolute before:right-0 before:inset-y-0 before:my-6 before:bg-gradient-to-b before:from-white/10 before:to-slate-50/10 before:bg-white/50 before:-mr-4 before:rounded-[0_1.2rem_1.2rem_0/0_1.7rem_1.7rem_0]"style="z-index: 99;">
+		</div>
+		<div class="h-full col-span-7 2xl:col-span-8 lg:relative z-50 before:content-[&#39;&#39;] before:absolute before:lg:-ml-10 before:left-0 before:inset-y-0 before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 before:w-screen before:lg:w-[800%] after:content-[&#39;&#39;] after:absolute after:inset-y-0 after:left-0 after:w-screen after:lg:w-[800%] after:bg-texture-white after:bg-fixed after:bg-center after:lg:bg-[25rem_-25rem] after:bg-no-repeat">
+			<div class="notestick sticky top-0 z-50 flex-col justify-center hidden h-screen ml-16 lg:flex xl:ml-28 2xl:ml-36" >
+				<div class="text-[2.6rem] font-medium leading-[1.4] text-white xl:text-5xl xl:leading-[1.2]">
+					{{ login_tag or "Streamline Your  <br/> Business Operations"}}
+				</div>
+				<div class="mt-5 text-base leading-relaxed text-white/70 xl:text-lg">
+					{{ login_description or "Unlock ERP potential: create stunning, feature-rich dashboards. Join us to revolutionize your business management today!" }}
+				</div>
+				<div class="flex flex-col gap-3 mt-10 xl:flex-row xl:items-center">
+					<div class="text-base text-white/70 xl:ml-2 2xl:ml-3">
+						{{ short_notes or "Over 300+ Implementations! Be our next success story." }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style>
+		:root {
+			--primary-color: {{ primary_color }};
+			--secondary-color: {{ secondary_color }};
+			--color-theme-1: {{color_theme_1}}; 
+			--color-theme-2: {{color_theme_2}}; 
+		}
+		.bg-gradient-to-r {
+			background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+		}
+		.tooltip {
+			opacity: 1;
+		}
+		button.close {
+			display: none;
+		}
+		@media (max-width: 450px) {
+			.px-5 {
+				padding-right: 1rem !important;
+				padding-left: 1rem !important;
+			}
+		}
+		.main-login {
+			width: 600px; 
+			border-radius: 0 20px 20px 0;
+		}
+		[dir="rtl"] .main-login {
+			border-radius: 20px 0 0 20px;
+		}
+		[dir="rtl"] .notestick {
+			margin-right: 110px;
+		}
+		[dir="rtl"] .bg-slot::before {
+			margin-left: 0;
+			margin-right: 0;
+		}
+		.bg-slot::before {
+			width: 102%;
+			border-radius: 20px;
+		}
+		.bg-slot::after {
+			width: 90%;
+			display: none;
+		}
+		.user-box {
+			position: relative;
+			margin-bottom: 30px;
+			}
+		.password-toggle-icon {
+			position: absolute;
+			top: 60%;
+			right: 10px;
+			transform: translateY(-50%);
+			cursor: pointer;
+			}
+			[dir="rtl"] .password-toggle-icon {
+			position: absolute;
+			top: 60%;
+			right: 357px;
+			transform: translateY(-50%);
+			cursor: pointer;
+			}
+		.password-toggle-icon i {
+			font-size: 12px;
+			line-height: 1;
+			color: var(--primary-color);
+			transition: color 0.3s ease-in-out;
+			margin-bottom: 20px;
+			}
+			.password-toggle-icon i:hover {
+			color: var(--secondary-color); 
+			}
+		.user-box {
+			position: relative;
+			margin-bottom: 30px;
+			}
+	</style>
+</body>
+{% endblock %} 
+{% block scripts %}
+
+	{{ include_script("nxt_theme.bundle.js") }}
+	<script>
+		const passwordField = document.getElementById("login_password");
+		const togglePassword = document.querySelector(".password-toggle-icon i");
+
+		togglePassword.addEventListener("click", function () {
+		if (passwordField.type === "password") {
+			passwordField.type = "text";
+			togglePassword.classList.remove("fa-eye");
+			togglePassword.classList.add("fa-eye-slash");
+		} else {
+			passwordField.type = "password";
+			togglePassword.classList.remove("fa-eye-slash");
+			togglePassword.classList.add("fa-eye");
+		}
+		});
+		const translations = {
+		en: {
+			signIn: "Sign In",
+			signUp: "Sign Up",
+			email: "User Name*",
+			password: "Password*",
+			fullName: "Full Name*",
+			forgotPassword: "Forgot Password?",
+			dontHaveAccount: "Don't have an account?",
+			alreadyHaveAccount: "Already have an account?",
+			backTo: "Back to",
+			resetPassword: "Reset Password",
+			signInBtn: "Sign In",
+			signUpBtn: "Sign Up",
+		},
+		ar: {
+			signIn: "تسجيل الدخول",
+			signUp: "إنشاء حساب",
+			email: "اسم المستخدم*",
+			password: "كلمة المرور*",
+			fullName: "الاسم الكامل*",
+			forgotPassword: "هل نسيت كلمة المرور؟",
+			dontHaveAccount: "ليس لديك حساب؟",
+			alreadyHaveAccount: "لديك حساب بالفعل؟",
+			backTo: "العودة إلى",
+			resetPassword: "إعادة تعيين كلمة المرور",
+			signInBtn: "تسجيل الدخول",
+			signUpBtn: "إنشاء حساب",
+		}
+	};
+	document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('lang-switch');
+    let isArabic = "{{ language }}" === "ar";
+    const setLanguage = (lang) => {
+        const t = translations[lang];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (t[key]) {
+                el.textContent = t[key];
+            }
+        });
+		document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key]) {
+            el.placeholder = t[key];
+        }
+
+			const currentLang = localStorage.getItem('selectedLang');
+
+			if (currentLang === lang) {
+				return;
+			}
+			else{
+				localStorage.removeItem('selectedLang');
+				localStorage.setItem('selectedLang', lang);
+			}
+    });
+    };
+    const applyLang = () => {
+        if (isArabic) {
+            document.documentElement.setAttribute('dir', 'rtl');
+            document.documentElement.lang = 'ar';
+            if (btn) btn.textContent = 'English';
+            setLanguage('ar');
+        } else {
+            document.documentElement.setAttribute('dir', 'ltr');
+            document.documentElement.lang = 'en';
+            if (btn) btn.textContent = 'العربية';
+            setLanguage('en');
+        }
+    };
+		const arabiclang = () => {
+			frappe.call('nxt_theme.events.notification_log.get_system_language').then(r => {
+				if (r.message == "ar") {						
+						document.documentElement.setAttribute('dir', 'rtl');
+						document.documentElement.lang = 'ar';
+						if (btn) btn.textContent = 'English';
+						setLanguage('ar');
+				}
+			})
+		};
+		arabiclang();
+		if (btn) {
+			btn.addEventListener('click', function () {
+				isArabic = !isArabic;
+				applyLang();
+			});
+		}
+		});
+		{% include "templates/includes/login/login.js" %}
+	</script>
+{% endblock %} {% block sidebar %}{% endblock %}

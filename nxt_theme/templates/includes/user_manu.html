@@ -1,0 +1,50 @@
+<div class="flex items-center flex-1">
+    {% include "templates/includes/manu_items.html" ignore missing %}
+
+    <div data-tw-merge="" data-tw-placement="bottom-end" class="dropdown relative ml-5">
+        <button id="user_avatar" data-tw-toggle="dropdown" aria-expanded="false" class="cursor-pointer image-fit h-[36px] w-[36px] overflow-hidden rounded-full border-[3px] border-slate-200/70">
+            
+        </button>
+        <div data-transition="" data-selector=".show" data-enter="transition-all ease-linear duration-150" data-enter-from="absolute !mt-5 invisible opacity-0 translate-y-1" data-enter-to="!mt-1 visible opacity-100 translate-y-0" data-leave="transition-all ease-linear duration-150" data-leave-from="!mt-1 visible opacity-100 translate-y-0" data-leave-to="absolute !mt-5 invisible opacity-0 translate-y-1" class="dropdown-menu tw-dropdown-menu absolute z-[9999] user_manu">
+            <div data-tw-merge="" class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 w-56 mt-1">
+                {% for item in navbar_settings.settings_dropdown %}
+                    {% if (not item.hidden and item.item_label != "Apps" and item.item_label != "Toggle Theme") %}
+                        {% if (item.route) %}
+                            <a class="user-manu cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item" href="{{ item.route }}">
+                                {{ _(item.item_label) }}
+                            </a>
+                        {% elif (item.action) %}
+                            <button class="user-manu cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item" onclick="return {{ item.action }}">
+                                {{ _(item.item_label) }}
+                            </button>
+                        {% else %}
+                        <div class="h-px my-2 -mx-2 bg-slate-200/60 dark:bg-darkmode-400">
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div data-tw-backdrop="" aria-hidden="true" tabindex="-1" id="notifications-panel" class="modal group bg-gradient-to-b from-theme-1/50 via-theme-2/50 to-black/50 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&:not(.show)]:duration-[0s,0.2s] [&:not(.show)]:delay-[0.2s,0s] [&:not(.show)]:invisible [&:not(.show)]:opacity-0 [&.show]:visible [&.show]:opacity-100 [&.show]:duration-[0s,0.4s]">
+        <div data-tw-merge="" class="ml-auto h-screen flex flex-col bg-white relative shadow-md transition-[margin-right] duration-[0.6s] -mr-[100%] group-[.show]:mr-0 dark:bg-darkmode-600 sm:w-[460px] w-72 rounded-[0.75rem_0_0_0.75rem/1.1rem_0_0_1.1rem]"><a class="absolute inset-y-0 left-0 right-auto my-auto -ml-[60px] flex h-8 w-8 items-center justify-center rounded-full border border-white/90 bg-white/5 text-white/90 transition-all hover:rotate-180 hover:scale-105 hover:bg-white/10 focus:outline-none sm:-ml-[105px] sm:h-14 sm:w-14" data-tw-dismiss="modal" href="javascript:;">
+                <i data-tw-merge="" data-lucide="x" class="stroke-[1] h-8 w-8"></i>
+            </a>
+            <div data-tw-merge="" class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 px-6 py-5">
+                <h2 class="mr-auto text-base font-medium">Notifications</h2>
+                <a href="javascript:;" id="mark_all_as_read" data-tw-merge="" class="transition duration-200 border shadow-sm items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-secondary text-slate-500 dark:border-darkmode-100/40 dark:text-slate-300 [&:hover:not(:disabled)]:bg-secondary/20 [&:hover:not(:disabled)]:dark:bg-darkmode-100/10 sm:flex">
+                    <i data-tw-merge="" data-lucide="bell" class="stroke-[1] mr-2 h-4 w-4 mark-all-as-read-bell"></i>
+                    Mark all as read
+                </a>
+            </div>
+            <div data-tw-merge="" class="overflow-y-auto flex-1 p-0">
+                <div class="flex flex-col gap-0.5 p-3" id="notification_list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

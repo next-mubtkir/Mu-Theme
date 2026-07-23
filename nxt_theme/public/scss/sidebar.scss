@@ -1,0 +1,56 @@
+[data-page-route="Workspaces"] {
+  .layout-main .layout-side-section,
+  .sidebar-toggle-btn {
+    display: none;
+  }
+}
+
+
+.list-sidebar,
+.form-sidebar {
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 0 2px 6px #2553b91a;
+  border-radius: 6px;
+  padding: 10px;
+  position: relative;
+
+  &:before {
+    content: "";
+    z-index: -1;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+    height: 100%;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    position: absolute;
+    border-radius: 0.5rem;
+    left: 0.875rem;
+    right: 0.875rem;
+    top: 0;
+    margin-top: 0.75rem;
+  }
+}
+
+.layout-side-section .sidebar-label {
+  color: var(--primary);
+  font-size: var(--text-sm);
+}
+
+.layout-side-section.col-lg-2 {
+  padding-right: 0 !important;
+  
+  @media (min-width: 992px) {
+        flex: 0 0 18.666667%;
+        max-width: 18.666667%;
+  }
+}
+
+
+.form-sidebar .sidebar-image-section {
+  margin: auto;
+}
+
+#nxt_sidebar {
+    --icon-stroke: #fff;
+    --icon-fill: #ffffff1a;
+}

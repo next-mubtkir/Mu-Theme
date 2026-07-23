@@ -1,0 +1,41 @@
+<ul class="scrollable">
+    <!-- BEGIN: First Child -->
+    <li class="side-menu__divider">
+       Public
+    </li>
+    {% for page in pages %}
+    <li>
+        <a  href="javascript:;" data-title="{{ page.title }}" data-is_public="{{ page.public }}" class="link_to_page side-menu__link d-flex align-items-center">
+            <i data-tw-merge="" class="stroke-[1] w-5 h-5 side-menu__link__icon">
+                <svg class="icon icon-md" style="">
+                    <use class="" href="#icon-{{ page.icon }}"></use>
+                </svg>
+            </i>
+            <div class="side-menu__link__title">{{ _(page.title) }}</div>
+            
+            {% if page.child_workspace %}
+            <i data-tw-merge="" data-lucide="chevron-down" class="stroke-[1] w-5 h-5 side-menu__link__chevron cursor-pointer"></i>
+            {% endif %}
+        </a>
+        
+        {% if page.child_workspace %}
+        <ul class="">
+            {% for child_page in page.child_workspace %}
+            <li>
+                <div class=" ">
+                    <a  href="javascript:;" data-title="{{ child_page.title }}" data-is_public="{{ child_page.public }}" class="link_to_page side-menu__link d-flex align-items-center">
+                        <i data-tw-merge="" class="stroke-[1] w-5 h-5 side-menu__link__icon">
+                            <svg class="icon icon-md" style="">
+                                <use class="" href="#icon-{{ child_page.icon }}"></use>
+                            </svg>
+                        </i>
+                        <div class="side-menu__link__title">{{ _(child_page.title) }}</div>
+                    </a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>

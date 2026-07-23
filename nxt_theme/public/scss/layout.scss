@@ -1,0 +1,28 @@
+body.full-width .container {
+  width: 100%;
+}
+
+[data-page-route=Workspaces] .layout-main .layout-main-section-wrapper {
+  height: auto;
+}
+
+.page-head.drop-shadow .container {
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  background-color: var(--bg-color);
+  box-shadow: none;
+}
+
+.\[\&\.loading-page--before-hide\]\:before\:block.loading-page--before-hide::before {
+  background: var(--primary);
+}
+
+[data-route=posapp] #nxt_sidebar,
+[data-route=posapp] #nxt_navbar {
+  display: none !important;
+}
+
+[data-route=posapp] .main-section {
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+}

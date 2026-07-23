@@ -1,0 +1,17 @@
+
+[data-route^="setup-wizard"] .top-bar,
+[data-route^="setup-wizard"] .side-menu,
+[data-route^="setup-wizard"] .background::before,
+[data-route^="setup-wizard"] .background::after {
+    display: none !important;
+}
+
+[data-route^="setup-wizard"] .content {
+    margin: 0;
+}
+
+[data-route^="setup-wizard"] .container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}

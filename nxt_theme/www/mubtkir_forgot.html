@@ -1,0 +1,1146 @@
+{% extends "templates/web.html" %}
+
+{% block title %}استعادة كلمة المرور | MUBTKIR ERP{% endblock %}
+
+{% block page_content %}
+
+<div class="mub-forgot-page" id="mubForgotPage">
+
+  <!-- الشريط العلوي -->
+  <header class="forgot-header">
+    <a href="/login" class="header-login-link">
+      <span class="header-login-icon">👤</span>
+      <span data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</span>
+    </a>
+
+    <div class="header-brand">
+      <img src="/assets/nxt_theme/images/mubtkir-logo.png" alt="MUBTKIR ERP">
+      <strong>MUBTKIR <span>ERP</span></strong>
+    </div>
+  </header>
+
+  <!-- المحتوى -->
+  <main class="forgot-main">
+
+    <!-- الجهة اليسرى -->
+    <section class="forgot-visual" aria-hidden="true">
+
+      <div class="visual-dots">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="dashboard-window">
+        <div class="dashboard-topbar">
+          <i></i><i></i><i></i>
+        </div>
+
+        <div class="dashboard-body">
+
+          <div class="dashboard-sidebar">
+            <span>⌂</span>
+            <span>◔</span>
+            <span>▥</span>
+            <span>▤</span>
+            <span>⚙</span>
+          </div>
+
+          <div class="dashboard-content">
+            <div class="dashboard-cards">
+              <div></div>
+              <div></div>
+            </div>
+
+            <div class="dashboard-chart">
+              <svg viewBox="0 0 420 160" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="chartLineForgot" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#7445ba"/>
+                    <stop offset="55%" stop-color="#2d73c6"/>
+                    <stop offset="100%" stop-color="#13a9c8"/>
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M10,122 C65,40 115,135 172,72 C230,8 270,125 330,56 C360,22 390,34 410,18"
+                  fill="none"
+                  stroke="url(#chartLineForgot)"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+                <circle cx="410" cy="18" r="9" fill="#2d73c6"/>
+              </svg>
+            </div>
+
+            <div class="dashboard-bottom">
+              <div class="donut"></div>
+              <div class="bars">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="forgot-symbol">
+        <span class="mail-shape">✉</span>
+      </div>
+
+      <div class="visual-leaves">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="visual-path"></div>
+    </section>
+
+    <!-- البطاقة -->
+    <section class="forgot-card" id="forgotCard">
+
+      <div class="forgot-brand">
+        <img src="/assets/nxt_theme/images/mubtkir-logo.png" alt="MUBTKIR ERP">
+        <strong>MUBTKIR <span>ERP</span></strong>
+      </div>
+
+      <div class="recovery-icon">
+        <span>🔐</span>
+      </div>
+
+      <h1
+        id="forgotTitle"
+        data-ar="استعادة كلمة المرور"
+        data-en="Password Recovery">
+        استعادة كلمة المرور
+      </h1>
+
+      <p
+        id="forgotDescription"
+        data-ar="أدخل البريد الإلكتروني أو اسم المستخدم وسنرسل رابط إعادة تعيين كلمة المرور إلى البريد المسجل في حسابك."
+        data-en="Enter your email address or username and we will send a password reset link to the email registered on your account.">
+        أدخل البريد الإلكتروني أو اسم المستخدم وسنرسل رابط إعادة تعيين كلمة المرور إلى البريد المسجل في حسابك.
+      </p>
+
+      <form id="recovery_form" class="forgot-form" autocomplete="on">
+
+        <label
+          for="recovery_user"
+          data-ar="البريد الإلكتروني أو اسم المستخدم"
+          data-en="Email Address or Username">
+          البريد الإلكتروني أو اسم المستخدم
+        </label>
+
+        <div class="input-wrapper">
+          <span class="field-icon">👤</span>
+          <input
+            id="recovery_user"
+            name="user_input"
+            type="text"
+            autocomplete="username"
+            placeholder="أدخل البريد الإلكتروني أو اسم المستخدم"
+          >
+        </div>
+
+        <button class="primary-send-button recovery-button" type="submit">
+          <span
+            class="button-text"
+            data-ar="إرسال رابط الاستعادة"
+            data-en="Send Reset Link">
+            إرسال رابط الاستعادة
+          </span>
+          <span class="button-icon">↪</span>
+        </button>
+
+        <div id="recovery_message" role="status" aria-live="polite"></div>
+
+      </form>
+
+      <a href="/login" class="back-login-link">
+        <span>←</span>
+        <span
+          data-ar="العودة إلى تسجيل الدخول"
+          data-en="Back to Login">
+          العودة إلى تسجيل الدخول
+        </span>
+      </a>
+
+      <a href="/" class="home-link">
+        <span>⌂</span>
+        <span
+          data-ar="الرجوع إلى الصفحة الرئيسية"
+          data-en="Back to Home">
+          الرجوع إلى الصفحة الرئيسية
+        </span>
+      </a>
+
+    </section>
+
+  </main>
+</div>
+
+<style>
+/* =========================================================
+   1) إخفاء عناصر Frappe الافتراضية
+========================================================= */
+.navbar,
+.web-footer,
+footer {
+  display: none !important;
+}
+
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100%;
+  overflow-x: hidden !important;
+  font-family: Cairo, Tajawal, Arial, sans-serif;
+}
+
+.page-container,
+.page_content,
+.web-page-content,
+main,
+main .container,
+.container {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   2) المتغيرات
+========================================================= */
+.mub-forgot-page {
+  --bg: #eef4fd;
+  --panel: rgba(255, 255, 255, .94);
+  --text: #0b1b55;
+  --muted: #6f7d99;
+  --border: #d9e4f0;
+  --purple: #7445ba;
+  --blue: #2d73c6;
+  --cyan: #13a9c8;
+  --green: #32c38d;
+  --danger: #d9534f;
+  --gradient: linear-gradient(90deg, #7445ba, #5564bd, #2d73c6, #13a9c8);
+  --shadow: 0 22px 55px rgba(25, 57, 111, .13);
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  direction: rtl;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(116, 69, 186, .10), transparent 26%),
+    radial-gradient(circle at 88% 84%, rgba(19, 169, 200, .13), transparent 30%),
+    linear-gradient(135deg, #f8fbff 0%, #eef4fd 48%, #edf7fb 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.mub-forgot-page::before,
+.mub-forgot-page::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.mub-forgot-page::before {
+  width: 420px;
+  height: 420px;
+  left: -180px;
+  bottom: -130px;
+  border: 1px solid rgba(45, 115, 198, .08);
+  background: rgba(45, 115, 198, .025);
+}
+
+.mub-forgot-page::after {
+  width: 520px;
+  height: 520px;
+  right: -270px;
+  top: 180px;
+  border: 1px solid rgba(19, 169, 200, .08);
+  background: rgba(19, 169, 200, .025);
+}
+
+/* =========================================================
+   3) الهيدر
+========================================================= */
+.forgot-header {
+  width: calc(100% - 52px);
+  min-height: 86px;
+  margin: 26px auto 0;
+  padding: 16px 24px;
+  border: 1px solid rgba(217, 228, 240, .9);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .78);
+  box-shadow: 0 12px 34px rgba(25, 57, 111, .08);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 5;
+}
+
+.header-brand,
+.forgot-brand {
+  display: flex;
+  align-items: center;
+  direction: ltr;
+}
+
+.header-brand {
+  gap: 12px;
+}
+
+.header-brand img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.header-brand strong,
+.forgot-brand strong {
+  color: var(--text);
+  font-weight: 900;
+  letter-spacing: .2px;
+}
+
+.header-brand strong {
+  font-size: clamp(22px, 2vw, 30px);
+}
+
+.header-brand span,
+.forgot-brand span {
+  background: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.header-login-link {
+  min-height: 48px;
+  padding: 10px 18px;
+  border: 1px solid rgba(45, 115, 198, .55);
+  border-radius: 14px;
+  color: var(--blue);
+  background: rgba(255, 255, 255, .72);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 900;
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.header-login-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(45, 115, 198, .14);
+  background: #fff;
+  text-decoration: none;
+}
+
+.header-login-icon {
+  font-size: 18px;
+}
+
+/* =========================================================
+   4) المحتوى
+========================================================= */
+.forgot-main {
+  width: min(1460px, calc(100% - 72px));
+  min-height: calc(100vh - 150px);
+  margin: 0 auto;
+  padding: 38px 0 54px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(430px, 610px);
+  grid-template-areas: "visual card";
+  align-items: center;
+  gap: clamp(45px, 6vw, 100px);
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   5) البطاقة
+========================================================= */
+.forgot-card {
+  grid-area: card;
+  width: 100%;
+  padding: clamp(34px, 4vw, 58px);
+  border: 1px solid rgba(217, 228, 240, .95);
+  border-radius: 30px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  text-align: center;
+  backdrop-filter: blur(16px);
+}
+
+.forgot-brand {
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.forgot-brand img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.forgot-brand strong {
+  font-size: clamp(24px, 2.2vw, 34px);
+}
+
+.recovery-icon {
+  width: 118px;
+  height: 118px;
+  margin: 4px auto 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,.95), transparent 35%),
+    linear-gradient(145deg, rgba(50,195,141,.10), rgba(19,169,200,.10));
+  box-shadow:
+    0 18px 36px rgba(50, 195, 141, .10),
+    inset 0 0 0 10px rgba(255,255,255,.42);
+  position: relative;
+}
+
+.recovery-icon::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 4px solid;
+  border-color: var(--cyan) var(--green) var(--green) var(--cyan);
+  border-radius: 50%;
+}
+
+.recovery-icon span {
+  font-size: 48px;
+}
+
+.forgot-card h1 {
+  margin: 0 0 16px;
+  color: var(--text);
+  font-size: clamp(30px, 3vw, 44px);
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+.forgot-card p {
+  max-width: 520px;
+  margin: 0 auto 26px;
+  color: var(--muted);
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.9;
+}
+
+.forgot-form {
+  text-align: start;
+}
+
+.forgot-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.input-wrapper {
+  min-height: 58px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .92);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+
+.input-wrapper:focus-within {
+  border-color: rgba(45, 115, 198, .65);
+  box-shadow: 0 0 0 4px rgba(45, 115, 198, .08);
+}
+
+.field-icon {
+  font-size: 18px;
+  opacity: .7;
+}
+
+.input-wrapper input {
+  flex: 1;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.input-wrapper input::placeholder {
+  color: #97a3bb;
+}
+
+.primary-send-button {
+  width: 100%;
+  min-height: 62px;
+  margin-top: 18px;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 17px;
+  background: var(--gradient);
+  color: #fff !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  font-size: 18px;
+  font-weight: 900;
+  font-family: inherit;
+  text-decoration: none;
+  box-shadow: 0 16px 30px rgba(45, 115, 198, .24);
+  transition: transform .25s ease, box-shadow .25s ease;
+  cursor: pointer;
+}
+
+.primary-send-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 38px rgba(45, 115, 198, .31);
+}
+
+.primary-send-button:disabled {
+  opacity: .75;
+  cursor: wait;
+  transform: none;
+  box-shadow: none;
+}
+
+.button-icon {
+  font-size: 22px;
+}
+
+#recovery_message {
+  min-height: 24px;
+  margin-top: 14px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.7;
+}
+
+#recovery_message.success {
+  color: var(--green);
+}
+
+#recovery_message.error {
+  color: var(--danger);
+}
+
+.back-login-link,
+.home-link {
+  width: fit-content;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.back-login-link {
+  margin-top: 18px;
+  color: var(--blue);
+  font-size: 15px;
+}
+
+.home-link {
+  margin-top: 14px;
+  color: var(--blue);
+  font-size: 15px;
+}
+
+.back-login-link:hover,
+.home-link:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   6) الرسم
+========================================================= */
+.forgot-visual {
+  grid-area: visual;
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.visual-dots {
+  position: absolute;
+  top: 6%;
+  left: 3%;
+  width: 120px;
+  display: grid;
+  grid-template-columns: repeat(5, 9px);
+  gap: 14px;
+  opacity: .55;
+}
+
+.visual-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(45, 115, 198, .35);
+}
+
+.dashboard-window {
+  width: min(90%, 580px);
+  min-height: 405px;
+  border: 1px solid rgba(217, 228, 240, .85);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, .68);
+  box-shadow: 0 28px 58px rgba(25, 57, 111, .12);
+  overflow: hidden;
+  transform: perspective(900px) rotateY(6deg) rotateX(1deg);
+}
+
+.dashboard-topbar {
+  height: 54px;
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(217, 228, 240, .80);
+  background: linear-gradient(90deg, rgba(116,69,186,.96), rgba(45,115,198,.94), rgba(19,169,200,.92));
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.dashboard-topbar i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.78);
+}
+
+.dashboard-body {
+  min-height: 351px;
+  display: grid;
+  grid-template-columns: 66px 1fr;
+}
+
+.dashboard-sidebar {
+  padding-top: 22px;
+  border-inline-end: 1px solid rgba(217, 228, 240, .76);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.dashboard-sidebar span {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  color: var(--blue);
+  background: rgba(45, 115, 198, .08);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.dashboard-content {
+  padding: 24px;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 14px;
+}
+
+.dashboard-cards div {
+  height: 58px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(116,69,186,.10), rgba(19,169,200,.08));
+}
+
+.dashboard-chart {
+  height: 155px;
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 19px;
+  background: rgba(255, 255, 255, .66);
+  border: 1px solid rgba(217, 228, 240, .72);
+}
+
+.dashboard-chart svg {
+  width: 100%;
+  height: 100%;
+}
+
+.dashboard-bottom {
+  margin-top: 17px;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 18px;
+}
+
+.donut {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  background: conic-gradient(var(--cyan) 0 28%, var(--blue) 28% 62%, var(--purple) 62% 83%, #e5edf7 83%);
+  position: relative;
+}
+
+.donut::after {
+  content: "";
+  position: absolute;
+  inset: 23px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.94);
+}
+
+.bars {
+  height: 105px;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.bars span {
+  flex: 1;
+  border-radius: 9px 9px 2px 2px;
+  background: var(--gradient);
+}
+
+.bars span:nth-child(1) { height: 32%; }
+.bars span:nth-child(2) { height: 66%; }
+.bars span:nth-child(3) { height: 48%; }
+.bars span:nth-child(4) { height: 82%; }
+
+.forgot-symbol {
+  width: 138px;
+  height: 138px;
+  border: 1px solid rgba(217, 228, 240, .85);
+  border-radius: 26px;
+  background: rgba(255,255,255,.90);
+  box-shadow: 0 22px 38px rgba(25,57,111,.14);
+  display: grid;
+  place-items: center;
+  position: absolute;
+  right: 5%;
+  bottom: 7%;
+  transform: rotate(-2deg);
+}
+
+.mail-shape {
+  font-size: 58px;
+  font-weight: 900;
+  background: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.visual-leaves {
+  position: absolute;
+  left: 3%;
+  bottom: 10%;
+  width: 120px;
+  height: 145px;
+}
+
+.visual-leaves span {
+  position: absolute;
+  width: 50px;
+  height: 82px;
+  border-radius: 70% 0 70% 0;
+  background: linear-gradient(145deg, rgba(45,115,198,.85), rgba(116,69,186,.72));
+  transform-origin: bottom center;
+}
+
+.visual-leaves span:nth-child(1) {
+  left: 34px;
+  bottom: 8px;
+  transform: rotate(-10deg);
+}
+
+.visual-leaves span:nth-child(2) {
+  left: 4px;
+  bottom: 15px;
+  transform: rotate(-42deg) scale(.82);
+}
+
+.visual-leaves span:nth-child(3) {
+  right: 2px;
+  bottom: 22px;
+  transform: rotate(42deg) scale(.74);
+}
+
+.visual-path {
+  position: absolute;
+  right: 4%;
+  top: 47%;
+  width: 150px;
+  height: 80px;
+  border-top: 2px dashed rgba(45,115,198,.25);
+  border-radius: 50%;
+  transform: rotate(-8deg);
+}
+
+/* =========================================================
+   7) الإنجليزية
+========================================================= */
+.mub-forgot-page.en {
+  direction: ltr;
+}
+
+.mub-forgot-page.en .forgot-main {
+  grid-template-areas: "visual card";
+}
+
+.mub-forgot-page.en .forgot-form {
+  text-align: left;
+}
+
+/* =========================================================
+   8) الأجهزة اللوحية
+========================================================= */
+@media (max-width: 1050px) {
+  .forgot-main {
+    width: min(920px, calc(100% - 34px));
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "card"
+      "visual";
+    gap: 34px;
+  }
+
+  .forgot-card {
+    max-width: 680px;
+    margin: auto;
+  }
+
+  .forgot-visual {
+    min-height: 470px;
+  }
+
+  .dashboard-window {
+    width: min(86%, 560px);
+  }
+}
+
+/* =========================================================
+   9) الجوال
+========================================================= */
+@media (max-width: 600px) {
+  .forgot-header {
+    width: calc(100% - 20px);
+    min-height: 70px;
+    margin-top: 10px;
+    padding: 12px 14px;
+    border-radius: 17px;
+  }
+
+  .header-brand img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .header-brand strong {
+    font-size: 17px;
+  }
+
+  .header-login-link {
+    min-height: 42px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .forgot-main {
+    width: calc(100% - 20px);
+    padding-top: 18px;
+    gap: 20px;
+  }
+
+  .forgot-card {
+    padding: 26px 18px;
+    border-radius: 22px;
+  }
+
+  .forgot-brand img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .forgot-brand strong {
+    font-size: 21px;
+  }
+
+  .recovery-icon {
+    width: 96px;
+    height: 96px;
+  }
+
+  .recovery-icon span {
+    font-size: 40px;
+  }
+
+  .forgot-card h1 {
+    font-size: 27px;
+  }
+
+  .forgot-card p {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .primary-send-button {
+    min-height: 56px;
+    font-size: 16px;
+  }
+
+  .forgot-visual {
+    min-height: 360px;
+  }
+
+  .dashboard-window {
+    width: 94%;
+    min-height: 310px;
+    transform: none;
+  }
+
+  .dashboard-body {
+    min-height: 256px;
+    grid-template-columns: 52px 1fr;
+  }
+
+  .dashboard-content {
+    padding: 14px;
+  }
+
+  .dashboard-chart {
+    height: 110px;
+  }
+
+  .dashboard-bottom {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .donut {
+    width: 72px;
+    height: 72px;
+  }
+
+  .donut::after {
+    inset: 16px;
+  }
+
+  .bars {
+    height: 72px;
+  }
+
+  .forgot-symbol {
+    width: 96px;
+    height: 96px;
+    right: 1%;
+    bottom: 5%;
+  }
+
+  .mail-shape {
+    font-size: 42px;
+  }
+
+  .visual-leaves {
+    transform: scale(.72);
+    transform-origin: bottom left;
+  }
+}
+</style>
+
+<script>
+(() => {
+  "use strict";
+
+  let currentLang = localStorage.getItem("mub_lang") || "ar";
+
+  const page = document.getElementById("mubForgotPage");
+  const recoveryForm = document.getElementById("recovery_form");
+  const recoveryInput = document.getElementById("recovery_user");
+  const messageBox = document.getElementById("recovery_message");
+  const submitButton = document.querySelector(".recovery-button");
+  const forgotTitle = document.getElementById("forgotTitle");
+  const forgotDescription = document.getElementById("forgotDescription");
+
+  function applyLang(lang) {
+    currentLang = lang === "en" ? "en" : "ar";
+
+    document.documentElement.setAttribute("lang", currentLang);
+    document.documentElement.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
+
+    if (page) {
+      page.classList.toggle("en", currentLang === "en");
+      page.setAttribute("dir", currentLang === "ar" ? "rtl" : "ltr");
+    }
+
+    document.querySelectorAll("[data-ar][data-en]").forEach((element) => {
+      element.textContent = currentLang === "ar" ? element.dataset.ar : element.dataset.en;
+    });
+
+    if (recoveryInput) {
+      recoveryInput.placeholder = currentLang === "ar"
+        ? "أدخل البريد الإلكتروني أو اسم المستخدم"
+        : "Enter email address or username";
+    }
+
+    document.title = currentLang === "ar"
+      ? "استعادة كلمة المرور | MUBTKIR ERP"
+      : "Password Recovery | MUBTKIR ERP";
+  }
+
+  function showMessage(message, type) {
+    if (!messageBox) return;
+    messageBox.textContent = message;
+    messageBox.className = "";
+    if (type) {
+      messageBox.classList.add(type);
+    }
+  }
+
+  function setSubmitting(isSubmitting) {
+    if (!submitButton) return;
+
+    submitButton.disabled = isSubmitting;
+
+    const textElement = submitButton.querySelector(".button-text");
+    if (!textElement) return;
+
+    if (isSubmitting) {
+      textElement.textContent = currentLang === "ar"
+        ? "جارٍ إرسال الرابط..."
+        : "Sending link...";
+    } else {
+      textElement.textContent = currentLang === "ar"
+        ? textElement.dataset.ar
+        : textElement.dataset.en;
+    }
+  }
+
+  function setSuccessState() {
+    if (forgotTitle) {
+      forgotTitle.textContent = currentLang === "ar"
+        ? "تم إرسال رابط الاستعادة"
+        : "Reset Link Sent";
+    }
+
+    if (forgotDescription) {
+      forgotDescription.textContent = currentLang === "ar"
+        ? "إذا كانت البيانات صحيحة، فسيتم إرسال رابط إعادة تعيين كلمة المرور إلى البريد الإلكتروني المسجل. سيتم إعادتك تلقائيًا إلى صفحة تسجيل الدخول."
+        : "If the details are valid, a password reset link will be sent to the registered email address. You will be redirected automatically to the login page.";
+    }
+
+    if (recoveryForm) {
+      recoveryForm.style.display = "none";
+    }
+  }
+
+  async function submitPasswordRecovery(event) {
+    event.preventDefault();
+
+    const userInput = recoveryInput.value.trim();
+
+    showMessage("", "");
+
+    if (!userInput) {
+      showMessage(
+        currentLang === "ar"
+          ? "يرجى إدخال البريد الإلكتروني أو اسم المستخدم"
+          : "Please enter your email address or username",
+        "error"
+      );
+      recoveryInput.focus();
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const response = await fetch(
+        "/api/method/nxt_theme.api.password_reset.reset_password",
+        {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "X-Frappe-CSRF-Token":
+              window.frappe?.csrf_token && window.frappe.csrf_token !== "None"
+                ? window.frappe.csrf_token
+                : ""
+          },
+          body: JSON.stringify({
+            user_input: userInput
+          })
+        }
+      );
+
+      const data = await response.json().catch(() => ({}));
+      const result = data?.message && typeof data.message === "object" ? data.message : {};
+
+      if (response.ok && !data.exception && result.success === true) {
+        setSuccessState();
+
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 3000);
+
+        return;
+      }
+
+      showMessage(
+        result.message ||
+        (
+          currentLang === "ar"
+            ? "تعذر إرسال رابط الاستعادة. حاول مرة أخرى لاحقًا."
+            : "Could not send the reset link. Please try again later."
+        ),
+        "error"
+      );
+
+    } catch (error) {
+      showMessage(
+        currentLang === "ar"
+          ? "تعذر الاتصال بالخادم، حاول مرة أخرى."
+          : "Could not connect to the server. Please try again.",
+        "error"
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  if (recoveryForm) {
+    recoveryForm.addEventListener("submit", submitPasswordRecovery);
+  }
+
+  applyLang(currentLang);
+})();
+</script>
+
+{% endblock %}

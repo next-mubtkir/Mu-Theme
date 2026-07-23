@@ -1,0 +1,147 @@
+<div class="flex items-center gap-1 ml-auto">
+    <a class="p-2 rounded-full request-full-screen hover:bg-slate-100" href="javascript:;">
+        <i data-tw-merge="" data-lucide="expand" class="stroke-[1] h-[18px] w-[18px]"></i>
+    </a>
+    <a id="notification_bell" class="p-2 rounded-full hover:bg-slate-100" data-tw-toggle="modal" data-tw-target="#notifications-panel" href="javascript:;">
+        <i data-tw-merge="" data-lucide="bell" class="stroke-[1] h-[18px] w-[18px]"></i>
+    </a>
+    <a href="/app/theme-settings" class="p-2 rounded-full hover:bg-slate-100">
+        <i data-lucide="settings" class="stroke-[1] h-[18px] w-[18px]"></i>
+    </a>
+</div>
+
+{% set _cs_roles = frappe.get_roles() %}
+{% if "Company Switcher Manager" in _cs_roles and frappe.session.user != "Administrator" %}
+{% set _cs_current = frappe.defaults.get_user_default("company") %}
+{% set _cs_restricted = frappe.db.exists("User Permission", {"user": frappe.session.user, "allow": "Company"}) %}
+{% set _cs_companies = frappe.get_all("Company", fields=["name"], order_by="name", ignore_permissions=True) %}
+<div data-tw-merge="" data-tw-placement="bottom-end" class="dropdown relative ml-3">
+    <a data-tw-toggle="dropdown"
+       class="company-switcher-toggle flex items-center gap-2 px-3 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-darkmode-400"
+       href="javascript:;"
+       title="{{ _('Switch Company') }}"
+       data-current="{{ _cs_current or 'ALL' }}"
+       data-restricted="{{ 1 if _cs_restricted else 0 }}">
+        <i data-lucide="building-2" class="stroke-[1] h-[18px] w-[18px]"></i>
+        <span class="company-switcher-current-label hidden md:inline text-sm max-w-[140px] truncate">{{ _cs_current or _('All Companies') }}</span>
+    </a>
+
+    <div
+        data-transition=""
+        data-selector=".show"
+        data-enter="transition-all ease-linear duration-150"
+        data-enter-from="absolute !mt-5 invisible opacity-0 translate-y-1"
+        data-enter-to="!mt-1 visible opacity-100 translate-y-0"
+        data-leave="transition-all ease-linear duration-150"
+        data-leave-from="!mt-1 visible opacity-100 translate-y-0"
+        data-leave-to="absolute !mt-5 invisible opacity-0 translate-y-1"
+        class="dropdown-menu tw-dropdown-menu absolute z-[9999] company_switcher"
+    >
+        <div
+            data-tw-merge=""
+            class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017]
+                    dark:border-transparent dark:bg-darkmode-600 w-60 mt-1 max-h-[60vh] overflow-y-auto"
+        >
+            <a class="company-switcher-item cursor-pointer flex items-center gap-2 p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item"
+               href="javascript:;" data-company="ALL">
+                <i data-lucide="layout-grid" class="stroke-[1] h-4 w-4"></i>
+                <span class="flex-1">{{ _('All Companies') }}</span>
+                {% if not _cs_restricted %}<i data-lucide="check" class="h-4 w-4 text-primary"></i>{% endif %}
+            </a>
+            <div class="h-px my-1 -mx-2 bg-slate-200/60 dark:bg-darkmode-400"></div>
+            {% for c in _cs_companies %}
+                <a class="company-switcher-item cursor-pointer flex items-center gap-2 p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item"
+                   href="javascript:;" data-company="{{ c.name }}">
+                    <span class="flex-1 truncate">{{ c.name }}</span>
+                    {% if _cs_restricted and c.name == _cs_current %}<i data-lucide="check" class="h-4 w-4 text-primary"></i>{% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div data-tw-merge="" data-tw-placement="bottom-end" class="dropdown relative ml-3">
+    <a data-tw-toggle="dropdown" class="p-2 rounded-full" href="javascript:;">
+        <i data-lucide="languages" class="stroke-[1] h-[18px] w-[18px]"></i>
+    </a>
+
+    <div
+        data-transition=""
+        data-selector=".show"
+        data-enter="transition-all ease-linear duration-150"
+        data-enter-from="absolute !mt-5 invisible opacity-0 translate-y-1"
+        data-enter-to="!mt-1 visible opacity-100 translate-y-0"
+        data-leave="transition-all ease-linear duration-150"
+        data-leave-from="!mt-1 visible opacity-100 translate-y-0"
+        data-leave-to="absolute !mt-5 invisible opacity-0 translate-y-1"
+        class="dropdown-menu tw-dropdown-menu absolute z-[9999] language_switcher"
+    >
+        <div
+            data-tw-merge=""
+            class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017]
+                    dark:border-transparent dark:bg-darkmode-600 w-56 mt-1"
+        >
+            {% for lang in frappe.get_all(
+                "Language",
+                filters={"custom_show_in_language_switcher": 1},
+                fields=["name", "language_name", "flag"]
+            ) %}
+                <a
+                    class="cursor-pointer flex items-center gap-2 p-2 transition duration-300 ease-in-out
+                            rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600
+                            dark:hover:bg-darkmode-400 dropdown-item language-switcher"
+                    href="javascript:;"
+                    data-lang_code="{{ lang.name }}"
+                >
+                    {% if lang.flag %}
+                        <span class="text-lg">{{ lang.flag }}</span>
+                    {% endif %}
+                    <span class="flex-1">
+                        {{ lang.language_name }}
+                    </span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div data-tw-merge="" data-tw-placement="bottom-end" class="dropdown relative ml-3">
+    <a data-tw-toggle="dropdown" class="p-2 rounded-full" href="javascript:;">
+        <i data-lucide="help-circle" class="stroke-[1] h-[18px] w-[18px]"></i>
+    </a>
+
+    <div
+        data-transition=""
+        data-selector=".show"
+        data-enter="transition-all ease-linear duration-150"
+        data-enter-from="absolute !mt-5 invisible opacity-0 translate-y-1"
+        data-enter-to="!mt-1 visible opacity-100 translate-y-0"
+        data-leave="transition-all ease-linear duration-150"
+        data-leave-from="!mt-1 visible opacity-100 translate-y-0"
+        data-leave-to="absolute !mt-5 invisible opacity-0 translate-y-1"
+        class="dropdown-menu tw-dropdown-menu absolute z-[9999] help_switcher"
+    >
+        <div
+            data-tw-merge=""
+            class="dropdown-content rounded-md border-transparent bg-white p-2 shadow-[0px_3px_10px_#00000017]
+                    dark:border-transparent dark:bg-darkmode-600 w-56 mt-1"
+        >
+            {% for item in navbar_settings.help_dropdown %}
+                {% if not item.hidden %}
+                    {% if item.item_type == "Route" %}
+                        <a class="cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item" 
+                           href="{{ item.route or '#' }}" {% if item.route and item.route.startswith('http') %} target="_blank" {% endif %}>
+                            {{ _(item.item_label) }}
+                        </a>
+                    {% elif item.item_type == "Action" %}
+                        <button class="w-full text-left cursor-pointer flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-slate-200/60 dark:bg-darkmode-600 dark:hover:bg-darkmode-400 dropdown-item" 
+                                onclick="return {{ item.action }}">
+                            {{ _(item.item_label) }}
+                        </button>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

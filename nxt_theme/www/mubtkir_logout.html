@@ -1,0 +1,862 @@
+<html>
+ <head></head>
+ <body>
+  {% extends "templates/web.html" %} {% block title %}تم تسجيل الخروج | MUBTKIR ERP{% endblock %} {% block page_content %}
+  <div class="mub-logout-page" id="mubLogoutPage">
+   <!-- الشريط العلوي -->
+   <header class="logout-header">
+    <a href="/login" class="header-login-link"> <span class="header-login-icon">👤</span> <span data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</span> </a>
+    <div class="header-brand">
+     <img src="/assets/nxt_theme/images/mubtkir-logo.png" alt="MUBTKIR ERP"> <strong>MUBTKIR <span>ERP</span></strong>
+    </div>
+   </header>
+   <!-- المحتوى الرئيسي -->
+   <main class="logout-main">
+    <!-- الرسم التوضيحي -->
+    <section class="logout-visual" aria-hidden="true">
+     <div class="visual-dots">
+      <span></span><span></span><span></span><span></span><span></span> <span></span><span></span><span></span><span></span><span></span> <span></span><span></span><span></span><span></span><span></span>
+     </div>
+     <div class="dashboard-window">
+      <div class="dashboard-topbar">
+       <i></i><i></i><i></i>
+      </div>
+      <div class="dashboard-body">
+       <div class="dashboard-sidebar">
+        <span>⌂</span> <span>◔</span> <span>▥</span> <span>▤</span> <span>⚙</span>
+       </div>
+       <div class="dashboard-content">
+        <div class="dashboard-cards">
+         <div></div>
+         <div></div>
+        </div>
+        <div class="dashboard-chart">
+         <svg viewBox="0 0 420 160" preserveAspectRatio="none">
+          <defs>
+           <linearGradient id="chartLine" x1="0" x2="1">
+            <stop offset="0%" stop-color="#7445ba" /> <stop offset="55%" stop-color="#2d73c6" /> <stop offset="100%" stop-color="#13a9c8" />
+           </linearGradient>
+          </defs>
+          <path d="M10,122 C65,40 115,135 172,72 C230,8 270,125 330,56 C360,22 390,34 410,18" fill="none" stroke="url(#chartLine)" stroke-width="7" stroke-linecap="round" /> <circle cx="410" cy="18" r="9" fill="#2d73c6" />
+         </svg>
+        </div>
+        <div class="dashboard-bottom">
+         <div class="donut"></div>
+         <div class="bars">
+          <span></span><span></span><span></span><span></span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="logout-symbol">
+      <span class="door-shape"></span> <span class="exit-arrow">➜</span>
+     </div>
+     <div class="visual-leaves">
+      <span></span> <span></span> <span></span>
+     </div>
+     <div class="visual-path"></div>
+    </section>
+    <!-- بطاقة تأكيد تسجيل الخروج -->
+    <section class="logout-card">
+     <div class="logout-brand">
+      <img src="/assets/nxt_theme/images/mubtkir-logo.png" alt="MUBTKIR ERP"> <strong>MUBTKIR <span>ERP</span></strong>
+     </div>
+     <div class="success-icon">
+      <span>✓</span>
+     </div>
+     <h1 data-ar="تم تسجيل الخروج بنجاح" data-en="You have been logged out successfully">تم تسجيل الخروج بنجاح</h1>
+     <p data-ar="تم تسجيل خروجك من النظام بنجاح. يمكنك العودة إلى صفحة تسجيل الدخول للمتابعة." data-en="You have been logged out successfully. You can return to the login page to continue.">تم تسجيل خروجك من النظام بنجاح. يمكنك العودة إلى صفحة تسجيل الدخول للمتابعة.</p>
+     <a href="/login" class="primary-login-button"> <span data-ar="العودة إلى تسجيل الدخول" data-en="Back to Login"> العودة إلى تسجيل الدخول </span> <span class="button-icon">↪</span> </a> <a href="/" class="home-link"> <span>⌂</span> <span data-ar="الرجوع إلى الصفحة الرئيسية" data-en="Back to Home"> الرجوع إلى الصفحة الرئيسية </span> </a>
+    </section>
+   </main>
+  </div>
+  <style>
+/* =========================================================
+   1) إخفاء عناصر Frappe الافتراضية
+========================================================= */
+.navbar,
+.web-footer,
+footer {
+  display: none !important;
+}
+
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100%;
+  overflow-x: hidden !important;
+  font-family: Cairo, Tajawal, Arial, sans-serif;
+}
+
+.page-container,
+.page_content,
+.web-page-content,
+main,
+main .container,
+.container {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   2) متغيرات التصميم
+========================================================= */
+.mub-logout-page {
+  --bg: #eef4fd;
+  --panel: rgba(255, 255, 255, .94);
+  --text: #0b1b55;
+  --muted: #6f7d99;
+  --border: #d9e4f0;
+  --purple: #7445ba;
+  --blue: #2d73c6;
+  --cyan: #13a9c8;
+  --green: #32c38d;
+  --gradient: linear-gradient(90deg, #7445ba, #5564bd, #2d73c6, #13a9c8);
+  --shadow: 0 22px 55px rgba(25, 57, 111, .13);
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  direction: rtl;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(116, 69, 186, .10), transparent 26%),
+    radial-gradient(circle at 88% 84%, rgba(19, 169, 200, .13), transparent 30%),
+    linear-gradient(135deg, #f8fbff 0%, #eef4fd 48%, #edf7fb 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.mub-logout-page::before,
+.mub-logout-page::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.mub-logout-page::before {
+  width: 420px;
+  height: 420px;
+  left: -180px;
+  bottom: -130px;
+  border: 1px solid rgba(45, 115, 198, .08);
+  background: rgba(45, 115, 198, .025);
+}
+
+.mub-logout-page::after {
+  width: 520px;
+  height: 520px;
+  right: -270px;
+  top: 180px;
+  border: 1px solid rgba(19, 169, 200, .08);
+  background: rgba(19, 169, 200, .025);
+}
+
+/* =========================================================
+   3) الشريط العلوي
+========================================================= */
+.logout-header {
+  width: calc(100% - 52px);
+  min-height: 86px;
+  margin: 26px auto 0;
+  padding: 16px 24px;
+  border: 1px solid rgba(217, 228, 240, .9);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .78);
+  box-shadow: 0 12px 34px rgba(25, 57, 111, .08);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 5;
+}
+
+.header-brand,
+.logout-brand {
+  display: flex;
+  align-items: center;
+  direction: ltr;
+}
+
+.header-brand {
+  gap: 12px;
+}
+
+.header-brand img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.header-brand strong,
+.logout-brand strong {
+  color: var(--text);
+  font-weight: 900;
+  letter-spacing: .2px;
+}
+
+.header-brand strong {
+  font-size: clamp(22px, 2vw, 30px);
+}
+
+.header-brand span,
+.logout-brand span {
+  background: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.header-login-link {
+  min-height: 48px;
+  padding: 10px 18px;
+  border: 1px solid rgba(45, 115, 198, .55);
+  border-radius: 14px;
+  color: var(--blue);
+  background: rgba(255, 255, 255, .72);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 900;
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.header-login-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(45, 115, 198, .14);
+  background: #fff;
+  text-decoration: none;
+}
+
+.header-login-icon {
+  font-size: 18px;
+}
+
+/* =========================================================
+   4) المحتوى الرئيسي
+========================================================= */
+.logout-main {
+  width: min(1460px, calc(100% - 72px));
+  min-height: calc(100vh - 150px);
+  margin: 0 auto;
+  padding: 38px 0 54px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(430px, 610px);
+  grid-template-areas: "visual card";
+  align-items: center;
+  gap: clamp(45px, 6vw, 100px);
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   5) بطاقة تأكيد تسجيل الخروج
+========================================================= */
+.logout-card {
+  grid-area: card;
+  width: 100%;
+  padding: clamp(34px, 4vw, 58px);
+  border: 1px solid rgba(217, 228, 240, .95);
+  border-radius: 30px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  text-align: center;
+  backdrop-filter: blur(16px);
+}
+
+.logout-brand {
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.logout-brand img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.logout-brand strong {
+  font-size: clamp(24px, 2.2vw, 34px);
+}
+
+.success-icon {
+  width: 126px;
+  height: 126px;
+  margin: 4px auto 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,.95), transparent 35%),
+    linear-gradient(145deg, rgba(50,195,141,.16), rgba(19,169,200,.10));
+  box-shadow:
+    0 18px 36px rgba(50, 195, 141, .15),
+    inset 0 0 0 10px rgba(255,255,255,.42);
+  position: relative;
+}
+
+.success-icon::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 4px solid;
+  border-color: var(--green) var(--cyan) var(--cyan) var(--green);
+  border-radius: 50%;
+  animation: successRotate 8s linear infinite;
+}
+
+.success-icon span {
+  color: var(--green);
+  font-size: 58px;
+  font-weight: 900;
+  line-height: 1;
+  transform: translateY(-2px);
+}
+
+.logout-card h1 {
+  margin: 0 0 16px;
+  color: var(--text);
+  font-size: clamp(32px, 3.3vw, 48px);
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+.logout-card p {
+  max-width: 520px;
+  margin: 0 auto 28px;
+  color: var(--muted);
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.9;
+}
+
+.primary-login-button {
+  width: 100%;
+  min-height: 62px;
+  padding: 14px 22px;
+  border-radius: 17px;
+  background: var(--gradient);
+  color: #fff !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  font-size: 18px;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 0 16px 30px rgba(45, 115, 198, .24);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.primary-login-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 38px rgba(45, 115, 198, .31);
+  text-decoration: none;
+}
+
+.button-icon {
+  font-size: 24px;
+}
+
+.home-link {
+  width: fit-content;
+  margin: 20px auto 0;
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   6) الرسم التوضيحي
+========================================================= */
+.logout-visual {
+  grid-area: visual;
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.visual-dots {
+  position: absolute;
+  top: 6%;
+  left: 3%;
+  width: 120px;
+  display: grid;
+  grid-template-columns: repeat(5, 9px);
+  gap: 14px;
+  opacity: .55;
+}
+
+.visual-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(45, 115, 198, .35);
+}
+
+.dashboard-window {
+  width: min(90%, 580px);
+  min-height: 405px;
+  border: 1px solid rgba(217, 228, 240, .85);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, .68);
+  box-shadow: 0 28px 58px rgba(25, 57, 111, .12);
+  overflow: hidden;
+  transform: perspective(900px) rotateY(6deg) rotateX(1deg);
+  animation: dashboardFloat 4s ease-in-out infinite alternate;
+}
+
+.dashboard-topbar {
+  height: 54px;
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(217, 228, 240, .80);
+  background: linear-gradient(90deg, rgba(116,69,186,.96), rgba(45,115,198,.94), rgba(19,169,200,.92));
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.dashboard-topbar i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.78);
+}
+
+.dashboard-body {
+  min-height: 351px;
+  display: grid;
+  grid-template-columns: 66px 1fr;
+}
+
+.dashboard-sidebar {
+  padding-top: 22px;
+  border-inline-end: 1px solid rgba(217, 228, 240, .76);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.dashboard-sidebar span {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  color: var(--blue);
+  background: rgba(45, 115, 198, .08);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.dashboard-content {
+  padding: 24px;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 14px;
+}
+
+.dashboard-cards div {
+  height: 58px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(116,69,186,.10), rgba(19,169,200,.08));
+}
+
+.dashboard-chart {
+  height: 155px;
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 19px;
+  background: rgba(255, 255, 255, .66);
+  border: 1px solid rgba(217, 228, 240, .72);
+}
+
+.dashboard-chart svg {
+  width: 100%;
+  height: 100%;
+}
+
+.dashboard-bottom {
+  margin-top: 17px;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 18px;
+}
+
+.donut {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  background: conic-gradient(var(--cyan) 0 28%, var(--blue) 28% 62%, var(--purple) 62% 83%, #e5edf7 83%);
+  position: relative;
+}
+
+.donut::after {
+  content: "";
+  position: absolute;
+  inset: 23px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.94);
+}
+
+.bars {
+  height: 105px;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.bars span {
+  flex: 1;
+  border-radius: 9px 9px 2px 2px;
+  background: var(--gradient);
+}
+
+.bars span:nth-child(1) { height: 32%; }
+.bars span:nth-child(2) { height: 66%; }
+.bars span:nth-child(3) { height: 48%; }
+.bars span:nth-child(4) { height: 82%; }
+
+.logout-symbol {
+  width: 138px;
+  height: 138px;
+  border: 1px solid rgba(217, 228, 240, .85);
+  border-radius: 26px;
+  background: rgba(255,255,255,.90);
+  box-shadow: 0 22px 38px rgba(25,57,111,.14);
+  display: grid;
+  place-items: center;
+  position: absolute;
+  right: 5%;
+  bottom: 7%;
+  transform: rotate(-2deg);
+}
+
+.door-shape {
+  width: 58px;
+  height: 72px;
+  border: 8px solid transparent;
+  border-image: var(--gradient) 1;
+  border-right: 0;
+  border-radius: 10px;
+  position: absolute;
+  left: 25px;
+}
+
+.exit-arrow {
+  position: absolute;
+  right: 18px;
+  color: var(--blue);
+  font-size: 52px;
+  font-weight: 900;
+}
+
+.visual-leaves {
+  position: absolute;
+  left: 3%;
+  bottom: 10%;
+  width: 120px;
+  height: 145px;
+}
+
+.visual-leaves span {
+  position: absolute;
+  width: 50px;
+  height: 82px;
+  border-radius: 70% 0 70% 0;
+  background: linear-gradient(145deg, rgba(45,115,198,.85), rgba(116,69,186,.72));
+  transform-origin: bottom center;
+}
+
+.visual-leaves span:nth-child(1) {
+  left: 34px;
+  bottom: 8px;
+  transform: rotate(-10deg);
+}
+
+.visual-leaves span:nth-child(2) {
+  left: 4px;
+  bottom: 15px;
+  transform: rotate(-42deg) scale(.82);
+}
+
+.visual-leaves span:nth-child(3) {
+  right: 2px;
+  bottom: 22px;
+  transform: rotate(42deg) scale(.74);
+}
+
+.visual-path {
+  position: absolute;
+  right: 4%;
+  top: 47%;
+  width: 150px;
+  height: 80px;
+  border-top: 2px dashed rgba(45,115,198,.25);
+  border-radius: 50%;
+  transform: rotate(-8deg);
+}
+
+/* =========================================================
+   7) الحركات
+========================================================= */
+@keyframes successRotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes dashboardFloat {
+  from {
+    transform: perspective(900px) translateY(0) rotateY(6deg) rotateX(1deg);
+  }
+  to {
+    transform: perspective(900px) translateY(-12px) rotateY(4deg) rotateX(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mub-logout-page *,
+  .mub-logout-page *::before,
+  .mub-logout-page *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   8) الأجهزة اللوحية
+========================================================= */
+@media (max-width: 1050px) {
+  .logout-main {
+    width: min(920px, calc(100% - 34px));
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "card"
+      "visual";
+    gap: 34px;
+  }
+
+  .logout-card {
+    max-width: 680px;
+    margin: auto;
+  }
+
+  .logout-visual {
+    min-height: 470px;
+  }
+
+  .dashboard-window {
+    width: min(86%, 560px);
+  }
+}
+
+/* =========================================================
+   9) الجوال
+========================================================= */
+@media (max-width: 600px) {
+  .logout-header {
+    width: calc(100% - 20px);
+    min-height: 70px;
+    margin-top: 10px;
+    padding: 12px 14px;
+    border-radius: 17px;
+  }
+
+  .header-brand img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .header-brand strong {
+    font-size: 17px;
+  }
+
+  .header-login-link {
+    min-height: 42px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .logout-main {
+    width: calc(100% - 20px);
+    padding-top: 18px;
+    gap: 20px;
+  }
+
+  .logout-card {
+    padding: 26px 18px;
+    border-radius: 22px;
+  }
+
+  .logout-brand img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .logout-brand strong {
+    font-size: 21px;
+  }
+
+  .success-icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .success-icon span {
+    font-size: 46px;
+  }
+
+  .logout-card h1 {
+    font-size: 29px;
+  }
+
+  .logout-card p {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .primary-login-button {
+    min-height: 56px;
+    font-size: 16px;
+  }
+
+  .logout-visual {
+    min-height: 360px;
+  }
+
+  .dashboard-window {
+    width: 94%;
+    min-height: 310px;
+    transform: none;
+  }
+
+  .dashboard-body {
+    min-height: 256px;
+    grid-template-columns: 52px 1fr;
+  }
+
+  .dashboard-content {
+    padding: 14px;
+  }
+
+  .dashboard-chart {
+    height: 110px;
+  }
+
+  .dashboard-bottom {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .donut {
+    width: 72px;
+    height: 72px;
+  }
+
+  .donut::after {
+    inset: 16px;
+  }
+
+  .bars {
+    height: 72px;
+  }
+
+  .logout-symbol {
+    width: 96px;
+    height: 96px;
+    right: 1%;
+    bottom: 5%;
+  }
+
+  .door-shape {
+    width: 40px;
+    height: 52px;
+    border-width: 6px;
+    left: 17px;
+  }
+
+  .exit-arrow {
+    right: 10px;
+    font-size: 36px;
+  }
+
+  .visual-leaves {
+    transform: scale(.72);
+    transform-origin: bottom left;
+  }
+}
+.mub-logout-page.en {
+  direction: ltr;
+}
+
+.mub-logout-page.en .logout-main {
+  grid-template-areas: "card visual";
+}
+
+.mub-logout-page.en .header-brand,
+.mub-logout-page.en .logout-brand {
+  direction: ltr;
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const frappeLang =
+    window.frappe?.boot?.lang ||
+    window.frappe?.boot?.user?.language ||
+    document.documentElement.lang ||
+    "ar";
+
+  const lang = String(frappeLang).toLowerCase().startsWith("ar")
+    ? "ar"
+    : "en";
+
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+
+  const page = document.getElementById("mubLogoutPage");
+
+  if (page) {
+    page.dir = lang === "ar" ? "rtl" : "ltr";
+    page.classList.toggle("en", lang === "en");
+  }
+
+  document.querySelectorAll("[data-ar][data-en]").forEach(function (element) {
+    element.textContent =
+      lang === "ar"
+        ? element.dataset.ar
+        : element.dataset.en;
+  });
+
+  document.title =
+    lang === "ar"
+      ? "تم تسجيل الخروج | MUBTKIR ERP"
+      : "Logged Out | MUBTKIR ERP";
+});
+</script>
+  {% endblock %}
+ </body>
+</html>

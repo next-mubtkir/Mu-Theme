@@ -1,0 +1,9 @@
+[dir=rtl] #notifications-panel.show,
+[dir=rtl] #quick-search.show {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+[dir=rtl] .side-menu-collapsed .side-menu--on-hover img {
+    margin-right: 16px !important;
+}

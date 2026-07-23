@@ -1,0 +1,37 @@
+<div class="box fixed inset-x-0 top-0 z-10 flex h-[65px] rounded-none border-x-0 border-t-0 border-transparent bg-gradient-to-r from-theme-1 to-theme-2 shadow-lg">
+    <div class="side-menu__content bg-white flex-none flex items-center z-10 px-5 h-full xl:w-[275px] overflow-hidden relative duration-300 group-[.side-menu--collapsed]:xl:w-[91px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:w-[275px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:shadow-[6px_0_12px_-4px_#0000001f] before:content-[''] before:hidden before:xl:block before:absolute before:right-0 before:border-r before:border-dashed before:border-white/[0.15] before:h-4/6 before:group-[.side-menu--collapsed.side-menu--on-hover]:xl:hidden after:content-[''] after:left-[-1.25rem] after:bg-[1.25rem_top] after:absolute after:w-screen after:h-full after:bg-[length:100vw_65px] after:z-[-1] after:bg-gradient-to-r after:from-theme-1 after:to-theme-2">
+        <a class="items-center transition-[margin] xl:flex group-[.side-menu--collapsed.side-menu--on-hover]:xl:ml-0 group-[.side-menu--collapsed]:xl:ml-2" href="">
+            {% set theme_settings = frappe.get_doc("Theme Settings" , "Theme Settings")%}
+            <img src="{{ theme_settings.sidebar_logo  or "/assets/nxt_theme/images/small_icon.ico" }}" alt="" style="width: 40px;">
+            <div class="ml-3.5 font-medium text-white transition-opacity group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:opacity-0">
+                {{ theme_settings.sidebar_text or frappe.db.get_default("Company") or "MUBTKIR"}}
+            </div>
+        </a>
+        <a class="toggle-compact-menu ml-auto h-[20px] w-[20px] items-center justify-center rounded-full border border-white/40 text-white transition-[opacity,transform] hover:bg-white/5 group-[.side-menu--collapsed]:xl:rotate-180 group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:opacity-0 3xl:flex" href="">
+            <i data-tw-merge="" data-lucide="arrow-left" class="h-3.5 w-3.5 stroke-[1.3]"></i>
+        </a>
+        <div class="flex items-center gap-1 xl:hidden">
+            <a class="p-2 rounded-full open-mobile-menu hover:bg-white/5" href="">
+                <i data-tw-merge="" data-lucide="align-justify" class="stroke-[1] h-[18px] w-[18px] text-white"></i>
+            </a>
+            <a class="p-2 rounded-full hover:bg-white/5" data-tw-toggle="modal" data-tw-target="#quick-search" href="javascript:;">
+                <i data-tw-merge="" data-lucide="search" class="stroke-[1] h-[18px] w-[18px] text-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="absolute inset-x-0 h-full transition-[padding] duration-100 xl:pl-[275px] group-[.side-menu--collapsed]:xl:pl-[91px]">
+        <div class="flex items-center w-full h-full px-5">
+            <!-- BEGIN: Breadcrumb -->
+            {% include "templates/includes/breadcrumb.html" ignore missing %}
+            <!-- END: Breadcrumb -->
+
+            <!-- BEGIN: Search -->
+            {% include "templates/includes/searchbar.html" ignore missing %}
+            <!-- END: Search -->
+
+            <!-- BEGIN: Notification & User Menu -->
+            {% include "templates/includes/user_manu.html" ignore missing %}
+            <!-- END: Notification & User Menu -->
+        </div>
+    </div>
+</div>

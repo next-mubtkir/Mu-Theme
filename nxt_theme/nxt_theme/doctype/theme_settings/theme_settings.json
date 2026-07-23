@@ -1,0 +1,118 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-08-20 16:02:44.380797",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_zuvh",
+  "sidebar_logo",
+  "sidebar_text",
+  "skin",
+  "column_break_czh4",
+  "title",
+  "favicon_image",
+  "primary_color",
+  "secondary_color",
+  "section_break_pydo",
+  "login_tag",
+  "short_notes",
+  "column_break_gqfp",
+  "login_description"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_zuvh",
+   "fieldtype": "Section Break",
+   "label": "Branding"
+  },
+  {
+   "fieldname": "sidebar_logo",
+   "fieldtype": "Attach",
+   "label": "SIdebar Logo"
+  },
+  {
+   "fieldname": "column_break_czh4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": " Title"
+  },
+  {
+   "fieldname": "favicon_image",
+   "fieldtype": "Attach",
+   "label": "Favicon Image"
+  },
+  {
+   "fieldname": "sidebar_text",
+   "fieldtype": "Data",
+   "label": "Sidebar Text"
+  },
+  {
+   "fieldname": "primary_color",
+   "fieldtype": "Color",
+   "label": "Primary Color"
+  },
+  {
+   "fieldname": "secondary_color",
+   "fieldtype": "Color",
+   "label": "Secondary Color"
+  },
+  {
+   "fieldname": "section_break_pydo",
+   "fieldtype": "Section Break",
+   "label": "Login Page"
+  },
+  {
+   "default": "razor",
+   "fieldname": "skin",
+   "fieldtype": "Select",
+   "label": "Skin",
+   "options": "razor\necho\nexort\ndagger\nravage\nhook\nviper\nshuriken\nraze\nhavoc\nhurricane"
+  },
+  {
+   "fieldname": "login_tag",
+   "fieldtype": "Data",
+   "label": "Login Tag"
+  },
+  {
+   "fieldname": "short_notes",
+   "fieldtype": "Data",
+   "label": "Short Notes"
+  },
+  {
+   "fieldname": "column_break_gqfp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "login_description",
+   "fieldtype": "Small Text",
+   "label": "Login Description"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-03-05 23:35:40.437272",
+ "modified_by": "Administrator",
+ "module": "NXT Theme",
+ "name": "Theme Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,84 @@
+.widget {
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: .6rem;
+  position: relative;
+  box-shadow: 0 3px 5px #0000000b;
+  
+  &.shortcut-widget-box,
+  &.onboarding-widget-box {
+    background-color: var(--shortcut-bg-color);
+    padding: 15px;
+  }
+
+  &.number-widget-box {
+    padding: 0px !important;
+    
+    .widget-head {
+      padding: 10px;
+      background-color: var(--number-bg-color);
+      border-radius: .6rem .6rem 0 0;
+
+      .widget-title {
+        margin: 0;
+      }
+    }
+
+    .widget-body {
+      padding: 10px;
+    }
+
+    .widget-footer {
+      padding: 10px;
+    }
+  }
+
+  &:before {
+    content: "";
+    z-index: -1;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+    height: 100%;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    position: absolute;
+    border-radius: 0.5rem;
+    left: 0.875rem;
+    right: 0.875rem;
+    top: 0;
+    margin-top: 0.75rem;
+  }
+
+  &.spacer {
+    border: none;
+    background-color: var(--fg-color);
+    box-shadow: none;
+    
+    &:before {
+      display: none;
+    }
+  }
+
+  &.shortcut-widget-box {
+    margin-bottom: 0;
+
+  }
+}
+
+[data-page-route=Workspaces] .codex-editor .codex-editor__redactor .ce-block {
+  margin-bottom: 15px;
+
+  &:contains("spacer"),
+  &:contains("shortcut-widget-box") {
+    margin-bottom: 0;
+  }
+}
+
+[data-page-route=Workspaces] .layout-main .layout-main-section {
+  --fg-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.card-actions .dropdown-menu {
+  background-color: #fff;
+}

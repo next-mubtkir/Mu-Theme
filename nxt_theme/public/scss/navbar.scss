@@ -1,0 +1,106 @@
+// navbar breadcrumbs
+#navbar-breadcrumbs {
+  margin-left: 0;
+
+  li:not(:first-child) {
+    padding-left: 0.125rem;
+    position: relative;
+    margin-left: 12px !important;
+    
+    a:before {
+      content: var(--tw-content);
+      background-size: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300000095' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+        rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+      --tw-rotate: -90deg;
+      width: 14px;
+      height: 14px;
+      margin-top: auto;
+      margin-bottom: auto;
+      top: 0px;
+      bottom: 0px;
+      position: absolute;
+      margin-left: -1.125rem;
+    }
+  }
+
+  li:first-child a:before {
+    display: none;
+  }
+}
+
+
+#quick-search {
+  z-index: 1000 !important;
+
+  &.show {
+    display: block;
+    padding-left: 0 !important;
+    overflow: auto;
+
+    .awesomplete [role=listbox] {
+      background-color: #fff;
+    }
+  }
+}
+
+#notifications-panel {
+  z-index: 1000 !important;
+
+  &.show {
+    display: block;
+    padding-left: 0 !important;
+  }
+}
+
+@media (max-width: 1440px) {
+  #navbar-breadcrumbs li:not(:first-child) {
+      margin-left: 7px !important;
+  }
+
+  .page-head {
+      margin-bottom: 20px;
+  }
+}
+
+
+@media (min-width: 682px) {
+  .short-search-icon {
+      display: none;
+  }
+  
+  .searchbar {
+      display: flex;
+  }
+}
+
+@media (max-width: 681px) {
+  .searchbar {
+      display: none;
+  }
+}
+
+@media (max-width: 425px) {
+  .close-mobile-menu {
+      display: none;
+  }
+}
+
+.mark-all-as-read-bell {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .mark-all-as-read-bell {
+      display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .branding {
+    margin-top: 20px;
+  }
+}
+

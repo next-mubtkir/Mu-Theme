@@ -1,0 +1,23 @@
+.ce-header {
+  .h4 {
+    &:after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      bottom: 0px;
+      width: 53px;
+      border-bottom: 3px solid var(--primary);
+    }
+  }
+}
+
+.page-title .title-area .title-text {
+  background: linear-gradient(
+    145deg,
+    var(--primary-color),
+    var(--accent-color)
+  );
+  
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

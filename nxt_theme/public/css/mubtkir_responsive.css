@@ -1,0 +1,40 @@
+/* MUBTKIR — تحسينات تجاوب الشريط العلوي على الأجهزة الصغيرة
+   ملاحظة: قواعد محافِظة تستهدف مشاكل التجاوز في الجوال دون التأثير على سطح المكتب.
+   قابلة للضبط بعد الاختبار على جهازك بلقطة شاشة. */
+
+/* الشاشات دون xl (< 1280px): إخفاء مربع البحث العريض لأن هناك أيقونة بحث مصغّرة */
+@media (max-width: 1279px) {
+	header .searchbar {
+		display: none !important;
+	}
+}
+
+/* الأجهزة اللوحية والجوالات (< 768px) */
+@media (max-width: 767px) {
+	/* منع تجاوز عناصر الشريط العلوي أفقياً */
+	header .box .flex.h-full.w-full.items-center {
+		overflow-x: auto;
+		overflow-y: hidden;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+	}
+	header .box .flex.h-full.w-full.items-center::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* إخفاء اسم الشركة النصّي بجانب زر التبديل (تبقى الأيقونة) */
+	.company-switcher-current-label {
+		display: none !important;
+	}
+}
+
+/* الجوالات الصغيرة (< 480px): إخفاء زر ملء الشاشة لتوفير مساحة */
+@media (max-width: 479px) {
+	.request-full-screen {
+		display: none !important;
+	}
+	header .box {
+		margin-left: 0.75rem !important;
+		margin-right: 0.75rem !important;
+	}
+}
