@@ -8,11 +8,6 @@
 
   <!-- الشريط العلوي -->
   <header class="forgot-header">
-    <a href="/login" class="header-login-link">
-      <span class="header-login-icon">👤</span>
-      <span data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</span>
-    </a>
-
     <div class="header-brand">
       <img src="/assets/nxt_theme/images/mubtkir-logo.png" alt="MUBTKIR ERP">
       <strong>MUBTKIR <span>ERP</span></strong>
@@ -99,11 +94,6 @@
     <!-- البطاقة -->
     <section class="forgot-card" id="forgotCard">
 
-      <div class="forgot-brand">
-        <img src="/assets/nxt_theme/images/mubtkir-logo.png" alt="MUBTKIR ERP">
-        <strong>MUBTKIR <span>ERP</span></strong>
-      </div>
-
       <div class="recovery-icon">
         <span>🔐</span>
       </div>
@@ -162,15 +152,6 @@
           data-ar="العودة إلى تسجيل الدخول"
           data-en="Back to Login">
           العودة إلى تسجيل الدخول
-        </span>
-      </a>
-
-      <a href="/" class="home-link">
-        <span>⌂</span>
-        <span
-          data-ar="الرجوع إلى الصفحة الرئيسية"
-          data-en="Back to Home">
-          الرجوع إلى الصفحة الرئيسية
         </span>
       </a>
 
@@ -362,8 +343,8 @@ main .container,
   margin: 0 auto;
   padding: 38px 0 54px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(430px, 610px);
-  grid-template-areas: "visual card";
+  grid-template-columns: minmax(430px, 610px) minmax(0, 1fr);
+  grid-template-areas: "card visual";
   align-items: center;
   gap: clamp(45px, 6vw, 100px);
   position: relative;
@@ -826,6 +807,7 @@ main .container,
 }
 
 .mub-forgot-page.en .forgot-main {
+  grid-template-columns: minmax(0, 1fr) minmax(430px, 610px);
   grid-template-areas: "visual card";
 }
 
