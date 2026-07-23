@@ -55,6 +55,18 @@ def get_context(context):
 
 	theme_settings = frappe.get_doc("Theme Settings", "Theme Settings")
 
+	# شعار الشريط الجانبي ونصّه يُؤخذان تلقائياً من الشركة (لا من إعدادات الثيم)
+	_company = (
+		frappe.defaults.get_user_default("company")
+		or frappe.db.get_default("Company")
+	)
+	if not _company:
+		_cos = frappe.get_all("Company", pluck="name", limit=1, order_by="name")
+		_company = _cos[0] if _cos else None
+	_company_logo = (
+		frappe.db.get_value("Company", _company, "company_logo") if _company else None
+	)
+
 	context.update(
 		{
 			"no_cache": 1,
@@ -78,6 +90,8 @@ def get_context(context):
 			"navbar_settings": frappe.get_doc("Navbar Settings"),
 			"logo": frappe.get_website_settings("app_logo") or frappe.get_hooks("app_logo_url")[-1] or "/assets/nxt_theme/images/shape.svg",
 			"company": frappe.db.get_default("Company") or "NexTash",
+			"company_name": _company or "MUBTKIR",
+			"company_logo": _company_logo,
 			"primary": theme_settings.get("primary_color") or "#060960",
 			"secondary": theme_settings.get("secondary_color") or "#5EB182",
 			"color_theme_1": hex_to_rgb(theme_settings.get("primary_color") or "#060960"),

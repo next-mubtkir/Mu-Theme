@@ -7,9 +7,9 @@
 <div class="side-menu__content bg-slate-100 z-20 relative w-[275px] border-dashed border-slate-200/80 duration-300 transition-[width] group-[.side-menu--collapsed]:xl:w-[91px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:bg-slate-50 group-[.side-menu--collapsed.side-menu--on-hover]:xl:border-slate-50 group-[.side-menu--collapsed.side-menu--on-hover]:xl:border-solid group-[.side-menu--collapsed.side-menu--on-hover]:xl:shadow-[6px_0_12px_-4px_#0000000f] group-[.side-menu--collapsed.side-menu--on-hover]:xl:w-[275px] overflow-hidden border-r-2 h-screen flex flex-col">
     <div class="relative z-10 h-[65px] w-[275px] flex-none items-center overflow-hidden px-5 duration-300 xl:flex group-[.side-menu--collapsed.side-menu--on-hover]:xl:w-[275px] group-[.side-menu--collapsed]:xl:w-[91px]">
         <a class="flex items-center transition-[margin] duration-300 group-[.side-menu--collapsed.side-menu--on-hover]:xl:ml-0 group-[.side-menu--collapsed]:xl:ml-4 branding" href="">
-            <img src="{{ theme_settings.sidebar_logo  or "/assets/nxt_theme/images/small_icon.ico" }}" alt="" style="width: 40px;margin-left: 0.3rem;">
+            <img src="{{ company_logo  or "/assets/nxt_theme/images/small_icon.ico" }}" alt="" style="width: 40px;margin-left: 0.3rem;">
             <div class="ml-3.5 font-medium transition-opacity group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:opacity-0">
-                {{ theme_settings.sidebar_text or frappe.db.get_default("Company") or "MUBTKIR"}}
+                {{ company_name or frappe.db.get_default("Company") or "MUBTKIR"}}
             </div>
         </a>
 

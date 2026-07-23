@@ -88,6 +88,13 @@ def switch_company(company):
 			if default_company:
 				frappe.defaults.set_user_default("company", default_company, user=user)
 
+		# مسح فلاتر القوائم/التقارير المحفوظة للمستخدم كي تلتقط الشركة الجديدة،
+		# وإلا يبقى التقرير على الشركة السابقة (Frappe يتذكّر آخر فلاتر لكل مستخدم).
+		try:
+			frappe.db.sql("DELETE FROM `__UserSettings` WHERE `user`=%s", user)
+		except Exception:
+			frappe.log_error(title="Company Switcher: clear user settings failed", message=frappe.get_traceback())
+
 		frappe.db.commit()
 	except Exception:
 		frappe.db.rollback()

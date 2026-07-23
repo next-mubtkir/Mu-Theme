@@ -49,7 +49,7 @@
 
       <!-- شعار الشركة -->
       <img
-        src="{{ theme_settings.sidebar_logo or '/assets/nxt_theme/images/small_icon.ico' }}"
+        src="{{ company_logo or '/assets/nxt_theme/images/small_icon.ico' }}"
         alt=""
         style="width: 40px; margin-right: 16px !important; margin-left: 1.0rem;"
       >
@@ -60,7 +60,7 @@
                group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100
                group-[.side-menu--collapsed]:xl:opacity-0"
       >
-        {{ theme_settings.sidebar_text
+        {{ company_name
            or frappe.db.get_default("Company")
            or "MUBTKIR"
         }}

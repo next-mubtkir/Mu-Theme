@@ -6,19 +6,11 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_zuvh",
-  "sidebar_logo",
-  "sidebar_text",
+  "title",
   "skin",
   "column_break_czh4",
-  "title",
-  "favicon_image",
   "primary_color",
-  "secondary_color",
-  "section_break_pydo",
-  "login_tag",
-  "short_notes",
-  "column_break_gqfp",
-  "login_description"
+  "secondary_color"
  ],
  "fields": [
   {
@@ -27,28 +19,20 @@
    "label": "Branding"
   },
   {
-   "fieldname": "sidebar_logo",
-   "fieldtype": "Attach",
-   "label": "SIdebar Logo"
-  },
-  {
-   "fieldname": "column_break_czh4",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "title",
    "fieldtype": "Data",
    "label": " Title"
   },
   {
-   "fieldname": "favicon_image",
-   "fieldtype": "Attach",
-   "label": "Favicon Image"
+   "default": "razor",
+   "fieldname": "skin",
+   "fieldtype": "Select",
+   "label": "Skin",
+   "options": "razor\necho\nexort\ndagger\nravage\nhook\nviper\nshuriken\nraze\nhavoc\nhurricane"
   },
   {
-   "fieldname": "sidebar_text",
-   "fieldtype": "Data",
-   "label": "Sidebar Text"
+   "fieldname": "column_break_czh4",
+   "fieldtype": "Column Break"
   },
   {
    "fieldname": "primary_color",
@@ -59,37 +43,6 @@
    "fieldname": "secondary_color",
    "fieldtype": "Color",
    "label": "Secondary Color"
-  },
-  {
-   "fieldname": "section_break_pydo",
-   "fieldtype": "Section Break",
-   "label": "Login Page"
-  },
-  {
-   "default": "razor",
-   "fieldname": "skin",
-   "fieldtype": "Select",
-   "label": "Skin",
-   "options": "razor\necho\nexort\ndagger\nravage\nhook\nviper\nshuriken\nraze\nhavoc\nhurricane"
-  },
-  {
-   "fieldname": "login_tag",
-   "fieldtype": "Data",
-   "label": "Login Tag"
-  },
-  {
-   "fieldname": "short_notes",
-   "fieldtype": "Data",
-   "label": "Short Notes"
-  },
-  {
-   "fieldname": "column_break_gqfp",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "login_description",
-   "fieldtype": "Small Text",
-   "label": "Login Description"
   }
  ],
  "index_web_pages_for_search": 1,
