@@ -3,12 +3,18 @@
 // السبب المرجّح: بقاء قفل تمرير (modal-open / overflow hidden / backdrop) من تفاعل سابق،
 // أو عدم إعادة حساب ارتفاع حاوية التمرير عند تغيير المسار في تطبيق الصفحة الواحدة (SPA).
 
+import { unlockBodyScrollIfNoModal } from "./modal_utils";
+
 (function () {
 	function unlock_scroll() {
 		document.body.classList.remove("modal-open");
 		$(".modal-backdrop").remove();
 		$("body").css("overflow", "");
 		$("html").css("overflow", "");
+
+		// Release Tailwise's scroll lock (overflow-y-hidden class + inline
+		// padding-right) if no modal is actually visible
+		unlockBodyScrollIfNoModal();
 
 		// إعادة حساب ارتفاع حاويات التمرير (tailwise / simplebar) بعد رسم الصفحة
 		try {

@@ -1,33 +1,25 @@
-// Close modal properly and ensure it can be reopened
+import { openTailwiseModal, closeTailwiseModal } from "./modal_utils";
+
+// Close through the Tailwise API so the body scroll lock
+// (overflow-y-hidden + inline padding-right) is fully released.
 function closeSearchModal() {
-    const modal = $("#quick-search");
-    modal.removeClass("show");
-    modal.attr("aria-hidden", "true");
-    // Remove any backdrop that might be blocking
-    $(".modal-backdrop").remove();
-    $("body").removeClass("modal-open");
+    closeTailwiseModal("#quick-search");
 }
 
-// Open modal and ensure clean state
+// Open through the Tailwise API (a no-op if already open thanks to the
+// [data-modal-replacer] guard), then focus the search input once visible.
 function openSearchModal() {
-    const modal = $("#quick-search");
-    // Clean any previous state first
-    closeSearchModal();
-    // Small delay to ensure clean state
-    setTimeout(() => {
-        modal.addClass("show");
-        modal.attr("aria-hidden", "false");
-        let tries = 0;
-        let interval = setInterval(() => {
-            tries += 1;
-            if ($("#navbar-search").is(":visible")) {
-                $("#navbar-search").trigger("focus");
-                clearInterval(interval);
-            } else if (tries > 20) {
-                clearInterval(interval);
-            }
-        }, 100);
-    }, 50);
+    openTailwiseModal("#quick-search");
+    let tries = 0;
+    let interval = setInterval(() => {
+        tries += 1;
+        if ($("#navbar-search").is(":visible")) {
+            $("#navbar-search").trigger("focus");
+            clearInterval(interval);
+        } else if (tries > 20) {
+            clearInterval(interval);
+        }
+    }, 100);
 }
 
 // Old code - kept for compatibility

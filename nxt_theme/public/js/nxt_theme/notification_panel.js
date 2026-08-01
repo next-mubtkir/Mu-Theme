@@ -1,3 +1,4 @@
+import { closeTailwiseModal } from "./modal_utils";
 
 $(document).on("click", "#mark_all_as_read", (e) => {
 	frappe.call({
@@ -21,6 +22,9 @@ $(document).on("click", ".mark_as_read", (e) => {
 			load_notification()
 
 			if(document_type && document_name) {
+				// Close the panel via the Tailwise API before routing away,
+				// otherwise the body scroll lock is never released
+				closeTailwiseModal("#notifications-panel")
 				frappe.set_route("Form", document_type, document_name)
 			}
 		}
