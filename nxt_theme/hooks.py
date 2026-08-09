@@ -279,7 +279,7 @@ fixtures = [
 					"Payables", "Receivables", "Financial Reports", "ZATCA",
 					"ERPNext Settings", "Tools", "Website", "Support", "CRM", "Projects",
 					"Quality", "Manufacturing", "Users", "Assets", "Accunting", "stock",
-					"seling", "Buying",
+					"selling", "Buying",
 				],
 			]
 		],
