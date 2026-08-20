@@ -267,25 +267,5 @@ website_redirects = [
 # لتعبئة الملف بالبيانات النظيفة: ثبّت التطبيق على الموقع الذي يحوي الكتل ثم شغّل:
 #   bench --site <site> export-fixtures --app nxt_theme
 # سيُنشئ ذلك ملف nxt_theme/fixtures/custom_html_block.json بمحتوى دقيق (html/script/style).
-fixtures = [
-	{
-		"dt": "Custom HTML Block",
-		"filters": [
-			[
-				"name",
-				"in",
-				[
-					"Daimond Home", "Healthcare Home", "Gold Management", "Healthcare",
-					"Employee Lifecycle", "Shift & Attendance", "Performance",
-					"Expense Claims", "Leaves", "Recruitment", "HR", "POSNext", "Home",
-					"Whatsapp", "ERPNext Integrations", "Integrations", "Build",
-					"Payables", "Receivables", "Financial Reports", "ZATCA",
-					"ERPNext Settings", "Tools", "Website", "Support", "CRM", "Projects",
-					"Quality", "Manufacturing", "Users", "Assets", "Accunting", "stock",
-					"selling", "Buying",
-				],
-			]
-		],
-	},
-]
+
 
