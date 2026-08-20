@@ -21,10 +21,7 @@ app_include_css = [
     "nxt_theme.bundle.css",
     "/assets/nxt_theme/css/mubtkir_responsive.css",
 ]
-app_include_js = [
-    "nxt_theme.bundle.js",
-    "/assets/nxt_theme/js/stock_entry_type_arabic.js"
-]
+app_include_js = ["nxt_theme.bundle.js"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/nxt_theme/css/nxt_theme.css"
